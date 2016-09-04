@@ -9,5 +9,7 @@ namespace LiteApp.Services
     public interface IAppService
     {
         void Save(App app);
+
+        Page GetCurrentPage(string route);
     }
 }

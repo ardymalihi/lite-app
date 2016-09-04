@@ -17,7 +17,16 @@ namespace LiteApp.Controllers
         }
         public IActionResult Index()
         {
-            return View();
+            var page = _appService.GetCurrentPage(this.Request.Path.Value);
+            if (page != null)
+            {
+                return View();
+            }
+            else
+            {
+                return View("NotFound");
+            }
+            
         }
 
         public IActionResult Error()
