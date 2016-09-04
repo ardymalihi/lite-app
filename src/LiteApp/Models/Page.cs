@@ -13,9 +13,18 @@ namespace LiteApp.Models
 
         public List<Row> Rows { get; set; }
 
+        public List<Style> Styles { get; set; }
+
+        public List<Script> ScriptsTop { get; set; }
+
+        public List<Script> ScriptsBottom { get; set; }
+
         public Page()
         {
             Rows = new List<Row>();
+            Styles = new List<Style>();
+            ScriptsTop = new List<Script>();
+            ScriptsBottom = new List<Script>();
         }
     }
 }

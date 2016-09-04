@@ -18,14 +18,4 @@ namespace LiteApp.Models
             MenuItems = new List<MenuItem>();
         }
     }
-
-    public class MenuModule: IModule
-    {
-        public List<MenuItem> MenuItems { get; set; }
-
-        public MenuModule()
-        {
-            MenuItems = new List<MenuItem>();
-        }
-    }
 }

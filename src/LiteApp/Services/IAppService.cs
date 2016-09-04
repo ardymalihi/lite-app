@@ -8,6 +8,8 @@ namespace LiteApp.Services
 {
     public interface IAppService
     {
+        App App { get; }
+
         void Save(App app);
 
         Page GetCurrentPage(string route);

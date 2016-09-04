@@ -7,11 +7,22 @@ namespace LiteApp.Models
 {
     public class Col
     {
+        public string ClassName { get; set; }
+
+        public List<Attribute> Attributes { get; set; }
+
         public List<IModule> Modules { get; set; }
 
         public Col()
         {
+            Attributes = new List<Attribute> { new Attribute { Name = "class", Value = "col-md-12" } };
             Modules = new List<IModule>();
+        }
+
+       
+        public string GetHtmlAttribute()
+        {
+            return string.Format("class = \"{0}\" ", ClassName) + string.Join(" ", Attributes.Where(o => o.Name.ToLower() != "class").Select(o => string.Format("\"{0}\"=\"{1}\"", o.Name, o.Value)).ToArray());
         }
     }
 }

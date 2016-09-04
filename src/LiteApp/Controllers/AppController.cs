@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using LiteApp.Services;
+using LiteApp.ViewModels;
 
 namespace LiteApp.Controllers
 {
@@ -18,9 +19,13 @@ namespace LiteApp.Controllers
         public IActionResult Index()
         {
             var page = _appService.GetCurrentPage(this.Request.Path.Value);
+
             if (page != null)
             {
-                return View();
+                return View(new AppViewModel {
+                    App = _appService.App,
+                    CurrentPage = page
+                });
             }
             else
             {
