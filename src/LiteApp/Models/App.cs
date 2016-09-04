@@ -17,6 +17,8 @@ namespace LiteApp.Models
 
         public List<Page> Pages { get; set; }
 
+        public string NotFoundHtml { get; set; }
+
         public string FooterHtml { get; set; }
 
         public List<Style> Styles { get; set; }

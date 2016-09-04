@@ -73,7 +73,7 @@ namespace LiteApp.Data
                     },
                 },
                 HeaderHtml = @"
-< div id = 'myCarousel' class='carousel slide' data-ride='carousel' data-interval='6000'>
+<div id='myCarousel' class='carousel slide' data-ride='carousel' data-interval='6000'>
     <ol class='carousel-indicators'>
 	    <li data-target='#myCarousel' data-slide-to='0' class='active'></li>
 	    <li data-target='#myCarousel' data-slide-to='1'></li>
@@ -225,7 +225,19 @@ namespace LiteApp.Data
                                         ClassName = "col-md-12",
                                         Modules = new List<IModule> {
                                             new HtmlModule {
-                                                Content = "<h1>Contact Us at [Your Email Address]</h1>"
+                                                Content = @"
+<h3>How to find us?</h3>
+<address>
+    One Microsoft Way<br />
+    Redmond, WA 98052-6399<br />
+    <abbr title='Phone'>P:</abbr>
+    425.555.0100
+</address>
+
+<address>
+    <strong>Support:</strong> <a href='mailto:Support@example.com'>Support@example.com</a><br />
+    <strong>Marketing:</strong> <a href='mailto:Marketing@example.com'>Marketing@example.com</a>
+</address>"
                                             }
                                         }
                                     }
@@ -239,24 +251,24 @@ namespace LiteApp.Data
 <p>&copy; 2016 - LiteApp</p>",
                 Styles = new List<Style> {
                     new Style {
-                        Path = "~/lib/bootstrap/dist/css/bootstrap.css"
+                        Path = "/lib/bootstrap/dist/css/bootstrap.css"
                     },
                     new Style {
-                        Path = "~/css/site.css"
+                        Path = "/css/site.css"
                     }
                 },
                 ScriptsBottom = new List<Script> {
                     new Script {
-                        Path = "~/lib/jquery/dist/jquery.js"
+                        Path = "/lib/jquery/dist/jquery.js"
                     },
                     new Script {
-                        Path = "~/lib/bootstrap/dist/js/bootstrap.js"
+                        Path = "/lib/bootstrap/dist/js/bootstrap.js"
                     },
                     new Script {
-                        Path = "~/js/site.js"
+                        Path = "/js/site.js"
                     }
-                }
-                
+                },
+                NotFoundHtml = "Page Not Found"
             };
 
             return app;
