@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 
 namespace LiteApp.Models
 {
-    public class ArticleModule :IModule
+    public class Module
     {
-
+        public string Content { get; set; }
     }
 }

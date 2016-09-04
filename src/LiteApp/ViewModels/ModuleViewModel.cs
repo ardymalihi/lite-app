@@ -12,6 +12,6 @@ namespace LiteApp.ViewModels
 
         public Page CurrentPage { get; set; }
 
-        public IModule CurrentModule { get; set; }
+        public Module CurrentModule { get; set; }
     }
 }

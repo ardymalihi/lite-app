@@ -145,8 +145,8 @@ namespace LiteApp.Data
                                 Cols = new List<Col> {
                                     new Col {
                                         ClassName = "col-md-3",
-                                        Modules = new List<IModule> {
-                                            new HtmlModule {
+                                        Modules = new List<Module> {
+                                            new Module {
                                                 Content = @"
 <h2>Application uses</h2>
 <ul>
@@ -159,8 +159,8 @@ namespace LiteApp.Data
                                     },
                                     new Col {
                                         ClassName = "col-md-3",
-                                        Modules = new List<IModule> {
-                                            new HtmlModule {
+                                        Modules = new List<Module> {
+                                            new Module {
                                                 Content = @"
 <h2>How to</h2>
 <ul>
@@ -177,8 +177,8 @@ namespace LiteApp.Data
                                     },
                                     new Col {
                                         ClassName = "col-md-3",
-                                        Modules = new List<IModule> {
-                                            new HtmlModule {
+                                        Modules = new List<Module> {
+                                            new Module {
                                                 Content = @"
 <h2>Overview</h2>
 <ul>
@@ -195,8 +195,8 @@ namespace LiteApp.Data
                                     },
                                     new Col {
                                         ClassName = "col-md-3",
-                                        Modules = new List<IModule> {
-                                            new HtmlModule {
+                                        Modules = new List<Module> {
+                                            new Module {
                                                 Content = @"
 <h2>Run & Deploy</h2>
 <ul>
@@ -220,8 +220,8 @@ namespace LiteApp.Data
                                 Cols = new List<Col> {
                                     new Col {
                                         ClassName = "col-md-12",
-                                        Modules = new List<IModule> {
-                                            new HtmlModule {
+                                        Modules = new List<Module> {
+                                            new Module {
                                                 Content = @"
 <h3>How to find us?</h3>
 <address>

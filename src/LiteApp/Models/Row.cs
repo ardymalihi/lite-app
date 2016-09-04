@@ -22,7 +22,7 @@ namespace LiteApp.Models
 
         public string GetHtmlAttribute()
         {
-            return string.Format("class = \"{0}\" ", ClassName) + string.Join(" ", Attributes.Where(o=>o.Name.ToLower() != "class").Select(o => string.Format("\"{0}\"=\"{1}\"",o.Name, o.Value)).ToArray());
+            return string.Format("class=\"{0}\" ", ClassName) + string.Join(" ", Attributes.Where(o=>o.Name.ToLower() != "class").Select(o => string.Format("\"{0}\"=\"{1}\"",o.Name, o.Value)).ToArray());
         }
     }
 }
