@@ -17,15 +17,16 @@ namespace LiteApp.Controllers
         {
             _appService = appService;
         }
-        public IActionResult Index()
+        public IActionResult Index(string page)
         {
-            var page = _appService.GetCurrentPage(this.Request.Path.Value);
-
-            return View(new AppViewModel
+            var pageModel = _appService.GetCurrentPage("/" + page);
+            var appViewModel = new AppViewModel
             {
                 App = _appService.App,
-                CurrentPage = page ?? GetNotFoundPage()
-            });
+                CurrentPage = pageModel ?? GetNotFoundPage()
+            };
+
+            return View(appViewModel);
         }
 
         public IActionResult Error()

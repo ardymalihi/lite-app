@@ -1,5 +1,6 @@
 ﻿@model LiteApp.ViewModels.AppViewModel
 @{ 
+    Layout = null;
     var flatStyles = Model.App.Styles.Union(Model.CurrentPage.Styles).OrderBy(o => o.Order);
     var flatScriptsTop = Model.App.ScriptsTop.Union(Model.CurrentPage.ScriptsTop).OrderBy(o => o.Order);
     var flatScriptsBottom = Model.App.ScriptsBottom.Union(Model.CurrentPage.ScriptsBottom).OrderBy(o => o.Order);
@@ -18,18 +19,16 @@
     
     @foreach (var script in flatScriptsTop)
     {
-        <script src="@script"></script>
+        <script src="@script.Path"></script>
     }
 </head>
 <body>
 
     @Html.Partial("_Menu", Model)
 
-    @if (!String.IsNullOrWhiteSpace(Model.App.HeaderHtml) && (Model.App.ShowHeaderInAllPages || Model.CurrentPage.Route == "/"))
+    @if (!String.IsNullOrWhiteSpace(Model.App.HeaderHtml) && (Model.App.ShowHeaderInAllPages || Model.CurrentPage.Route == "/home"))
     {
-        <header>
-            @Html.Raw(Model.App.HeaderHtml)
-        </header>
+        @Html.Raw(Model.App.HeaderHtml)
     }
 
     @foreach (var row in Model.CurrentPage.Rows)
@@ -62,7 +61,7 @@
 
     @foreach (var script in flatScriptsBottom)
     {
-        <script src="@script"></script>
+        <script src="@script.Path"></script>
     }
 
 </body>

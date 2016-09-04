@@ -57,9 +57,9 @@ namespace LiteApp
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
-                    "all",
-                    "{*url}",
-                    new { controller = "App", action = "Index" }
+                    "Page",
+                    "{page}",
+                    new { controller = "App", action = "Index", page= "Home" }
                 );
             });
         }
