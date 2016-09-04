@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using LiteApp.Data;
+using LiteApp.Services;
 
 namespace LiteApp
 {
@@ -27,6 +29,9 @@ namespace LiteApp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton<IAppData, AppData>();
+            services.AddSingleton<IAppService, AppService>();
+
             // Add framework services.
             services.AddMvc();
         }
@@ -44,7 +49,7 @@ namespace LiteApp
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseExceptionHandler("/App/Error");
             }
 
             app.UseStaticFiles();
@@ -52,8 +57,10 @@ namespace LiteApp
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    "all",
+                    "{*url}",
+                    new { controller = "App", action = "Index" }
+                );
             });
         }
     }
