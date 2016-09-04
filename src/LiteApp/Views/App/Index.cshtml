@@ -1,6 +1,5 @@
 ﻿@model LiteApp.ViewModels.AppViewModel
 @{ 
-    Layout = null;
     var flatStyles = Model.App.Styles.Union(Model.CurrentPage.Styles).OrderBy(o => o.Order);
     var flatScriptsTop = Model.App.ScriptsTop.Union(Model.CurrentPage.ScriptsTop).OrderBy(o => o.Order);
     var flatScriptsBottom = Model.App.ScriptsBottom.Union(Model.CurrentPage.ScriptsBottom).OrderBy(o => o.Order);
