@@ -6,12 +6,8 @@ using System.Threading.Tasks;
 
 namespace LiteApp.ViewModels
 {
-    public class AppViewModel
+    public class AdminViewModel
     {
         public App App { get; set; }
-
-        public Page CurrentPage { get; set; }
-
-        public UserProfileViewModel UserProfile { get; set; }
     }
 }

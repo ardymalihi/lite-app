@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using LiteApp.Services;
 using LiteApp.ViewModels;
 using LiteApp.Models;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 
 namespace LiteApp.Controllers
 {
@@ -26,7 +28,29 @@ namespace LiteApp.Controllers
                 CurrentPage = pageModel ?? GetNotFoundPage()
             };
 
+            if (User.Identity.IsAuthenticated)
+            {
+                appViewModel.UserProfile = new UserProfileViewModel
+                {
+                    Name = User.Claims.FirstOrDefault(c => c.Type == "name")?.Value,
+                    EmailAddress = User.Claims.FirstOrDefault(c => c.Type == "emailaddress")?.Value,
+                    ProfileImage = User.Claims.FirstOrDefault(c => c.Type == "picture")?.Value,
+                    Country = User.Claims.FirstOrDefault(c => c.Type == "country")?.Value
+                };
+            }
+
             return View(appViewModel);
+        }
+
+        [Authorize(Roles = "admin")]
+        public IActionResult Admin()
+        {
+            var adminViewModel = new AdminViewModel
+            {
+                App = _appService.App
+            };
+
+            return View(adminViewModel);
         }
 
         public IActionResult Error()

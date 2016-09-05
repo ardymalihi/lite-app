@@ -1,0 +1,142 @@
+﻿@model LiteApp.ViewModels.AdminViewModel
+@{
+    var data = Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.App));
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Micro Stub Admin Panel</title>
+
+    <!-- Foundation CSS framework (Bootstrap and jQueryUI also supported) -->
+    <link rel='stylesheet' href='//cdnjs.cloudflare.com/ajax/libs/foundation/5.5.3/css/foundation.min.css'>
+    <!-- Font Awesome icons (Bootstrap, Foundation, and jQueryUI also supported) -->
+    <link rel='stylesheet' href='//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css'>
+    <script src="~/js/jsoneditor.js"></script>
+    <!--<script src="//cdnjs.cloudflare.com/ajax/libs/ace/1.2.4/ace.js"></script>-->
+
+    <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
+    <script>
+    // Set the default CSS theme and icon library globally
+    JSONEditor.defaults.theme = 'foundation5';
+    JSONEditor.defaults.iconlib = 'fontawesome4';
+    </script>
+    <style>
+        .fullWidth {
+            width: 100%;
+            margin-left: auto;
+            margin-right: auto;
+            max-width: initial;
+        }
+
+        .tabs dd.active > a, .tabs .tab-title.active > a {
+            background-color: #b9b9b9;
+            color: #222;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            overflow-y: scroll;
+        }
+
+        .header {
+            text-align: center;
+            padding-left: 20px;
+            padding-top: 13px;
+            position: fixed;
+            height: 80px;
+            top: 0;
+            width: 100%;
+            z-index: 100;
+            background-color: #b9b9b9;
+            border-bottom-color: #222;
+            border-bottom-width: 1px;
+            border-bottom-style: solid;
+        }
+
+        .content {
+            margin-top: 80px;
+        }
+    </style>
+</head>
+<body>
+    <div class='row fullWidth header'>
+        <div class='medium-12-columns'>
+            <button id='submit'>Save</button>
+            <button id='restore' class='secondary'>Undo All Changes</button>
+            <button id='resetCache' class='secondary'>Reset Cache</button>
+            <span id='valid_indicator' class='label'></span>
+        </div>
+    </div>
+    <div class='row fullWidth content'>
+        <div id='editor_holder' class='large-12 columns'></div>
+    </div>
+
+    <script>
+      // This is the starting value for the editor
+      // We will use this to seed the initial editor
+      // and to provide a "Restore to Default" button.
+        var starting_value = @data;
+
+        //JSONEditor.plugins.epiceditor.basePath = 'aceeditor';
+
+
+      // Initialize the editor
+      var editor = new JSONEditor(document.getElementById('editor_holder'),{
+        // Enable fetching schemas via ajax
+          ajax: true,
+          disable_collapse: true,
+          disable_edit_json: true,
+          disable_properties: true,
+          disable_array_reorder: true,
+
+        // The schema for the editor
+        schema: {
+          $ref: "/js/schema.json",
+          format: ""
+        },
+
+        // Seed the form with a starting value
+        startval: starting_value
+      });
+
+      // Hook up the submit button to log to the console
+      document.getElementById('submit').addEventListener('click',function() {
+          // Get the value from the editor
+          $.post( "/admin/save", editor.getValue() );
+
+      });
+
+      // Hook up the Restore to Default button
+      document.getElementById('restore').addEventListener('click',function() {
+        editor.setValue(starting_value);
+      });
+
+      // Reset Cache button
+      document.getElementById('resetCache').addEventListener('click',function() {
+          document.location.href = "/admin/reset";
+      });
+
+      // Hook up the validation indicator to update its
+      // status whenever the editor changes
+      editor.on('change',function() {
+        // Get an array of errors from the validator
+        var errors = editor.validate();
+
+        var indicator = document.getElementById('valid_indicator');
+
+        // Not valid
+        if(errors.length) {
+          indicator.className = 'label alert';
+          indicator.textContent = 'not valid';
+        }
+        // Valid
+        else {
+          indicator.className = 'label success';
+          indicator.textContent = 'valid';
+        }
+      });
+    </script>
+</body>
+</html>

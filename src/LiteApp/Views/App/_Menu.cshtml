@@ -20,9 +20,13 @@
                 }
             </ul>
             <ul class="nav navbar-nav navbar-right">
+                @if (User.IsInRole("admin"))
+                {
+                    <li><a asp-controller="App" asp-action="Admin">Admin</a></li>
+                }
                 @if (User.Identity.IsAuthenticated)
                 {
-                    <li><a asp-controller="Account" asp-action="Logout">Logout</a></li>
+                    <li><a asp-controller="Account" asp-action="Logout">Logout @Model.UserProfile.Name</a></li>
                 }
                 else
                 {
