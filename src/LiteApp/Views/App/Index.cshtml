@@ -34,11 +34,11 @@
 
         @foreach (var row in Model.CurrentPage.Rows)
         {
-            <div @Html.Raw(row.GetHtmlAttribute())>
+            <div class="@row.ClassName">
 
                 @foreach (var col in row.Cols)
                 {
-                    <div @Html.Raw(col.GetHtmlAttribute())>
+                    <div class="@col.ClassName">
 
                         @foreach (var module in col.Modules)
                         {

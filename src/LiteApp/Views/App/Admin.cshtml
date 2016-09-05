@@ -13,9 +13,14 @@
     <!-- Font Awesome icons (Bootstrap, Foundation, and jQueryUI also supported) -->
     <link rel='stylesheet' href='//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css'>
     <script src="~/js/jsoneditor.js"></script>
-    <!--<script src="//cdnjs.cloudflare.com/ajax/libs/ace/1.2.4/ace.js"></script>-->
 
     <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
+
+    <script src="//cdn.jsdelivr.net/sceditor/1.4.3/jquery.sceditor.bbcode.min.js"></script>
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/sceditor/1.4.3/jquery.sceditor.default.min.css">
+    <script src="//cdn.jsdelivr.net/sceditor/1.4.3/jquery.sceditor.xhtml.min.js"></script>
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/sceditor/1.4.3/themes/default.min.css">
+
     <script>
     // Set the default CSS theme and icon library globally
     JSONEditor.defaults.theme = 'foundation5';
@@ -104,7 +109,9 @@
       // Hook up the submit button to log to the console
       document.getElementById('submit').addEventListener('click',function() {
           // Get the value from the editor
-          $.post( "/admin/save", editor.getValue() );
+          $.post("/app/save", editor.getValue(), function() {
+              document.location.href = "/";
+          });
 
       });
 
@@ -115,7 +122,7 @@
 
       // Reset Cache button
       document.getElementById('resetCache').addEventListener('click',function() {
-          document.location.href = "/admin/reset";
+          document.location.href = "/app/reset";
       });
 
       // Hook up the validation indicator to update its

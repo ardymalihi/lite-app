@@ -8,6 +8,7 @@ using LiteApp.ViewModels;
 using LiteApp.Models;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
+using Newtonsoft.Json.Schema;
 
 namespace LiteApp.Controllers
 {
@@ -45,12 +46,27 @@ namespace LiteApp.Controllers
         [Authorize(Roles = "admin")]
         public IActionResult Admin()
         {
+            var jsonSchemaGenerator = new JsonSchemaGenerator();
+            var myType = typeof(App);
+            var schemaGenerator = jsonSchemaGenerator.Generate(myType);
+            schemaGenerator.Title = myType.Name;
+            var schema = schemaGenerator.ToString();
+
             var adminViewModel = new AdminViewModel
             {
-                App = _appService.App
+                App = _appService.App,
+                Schema = schema
             };
 
             return View(adminViewModel);
+        }
+
+        [Authorize(Roles = "admin")]
+        [HttpPost]
+        public IActionResult Save(App request)
+        {
+            _appService.Save(request);
+            return Ok();
         }
 
         public IActionResult Error()

@@ -1,7 +1,235 @@
 {
-  "title": "Admin Panel",
+  "title": "Control Panel",
   "type": "object",
   "properties": {
-
+    "Title": {
+      "required": true,
+      "type": "string"
+    },
+    "Pages": {
+      "format": "tabs",
+      "required": true,
+      "type": "array",
+      "items": {
+        "headerTemplate": "{{self.Title}}",
+        "type": "object",
+        "properties": {
+          "Title": {
+            "required": true,
+            "type": "string"
+          },
+          "Route": {
+            "required": true,
+            "type": "string"
+          },
+          "Rows": {
+            "format": "tabs",
+            "required": true,
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "ClassName": {
+                  "required": true,
+                  "type": "string"
+                },
+                "Cols": {
+                  "format": "tabs",
+                  "required": true,
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "ClassName": {
+                        "required": true,
+                        "type": "string"
+                      },
+                      "Modules": {
+                        "format": "tabs",
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "Content": {
+                              "format": "textarea",
+                              "options": {
+                                "wysiwyg": true
+                              },
+                              "required": true,
+                              "type": "string"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "Styles": {
+            "format": "tabs",
+            "required": true,
+            "type": "array",
+            "items": {
+              "headerTemplate": "<link href='{{self.Path}}'>",
+              "type": "object",
+              "properties": {
+                "Order": {
+                  "required": true,
+                  "type": "integer"
+                },
+                "Path": {
+                  "required": true,
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "ScriptsTop": {
+            "format": "tabs",
+            "required": true,
+            "type": "array",
+            "items": {
+              "headerTemplate": "<script src='{{self.Path}}' />",
+              "type": "object",
+              "properties": {
+                "Order": {
+                  "required": true,
+                  "type": "integer"
+                },
+                "Path": {
+                  "required": true,
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "ScriptsBottom": {
+            "format": "tabs",
+            "required": true,
+            "type": "array",
+            "items": {
+              "headerTemplate": "<script src='{{self.Path}}' />",
+              "type": "object",
+              "properties": {
+                "Order": {
+                  "required": true,
+                  "type": "integer"
+                },
+                "Path": {
+                  "required": true,
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "Menus": {
+      "format": "tabs",
+      "required": true,
+      "type": "array",
+      "items": {
+        "headerTemplate": "{{self.Title}}",
+        "type": "object",
+        "properties": {
+          "Title": {
+            "required": true,
+            "type": "string"
+          },
+          "Route": {
+            "required": true,
+            "type": "string"
+          }
+        }
+      }
+    },
+    "HeaderHtml": {
+      "format": "textarea",
+      "options": {
+        "wysiwyg": true
+      },
+      "required": true,
+      "type": "string"
+    },
+    "ShowHeaderInAllPages": {
+      "required": true,
+      "type": "boolean"
+    },
+    "FooterHtml": {
+      "format": "textarea",
+      "options": {
+        "wysiwyg": true
+      },
+      "required": true,
+      "type": "string"
+    },
+    "NotFoundHtml": {
+      "format": "textarea",
+      "options": {
+        "wysiwyg": true
+      },
+      "required": true,
+      "type": "string"
+    },
+    "Styles": {
+      "format": "tabs",
+      "required": true,
+      "type": "array",
+      "items": {
+        "headerTemplate": "<link href='{{self.Path}}'>",
+        "type": "object",
+        "properties": {
+          "Order": {
+            "required": true,
+            "type": "integer"
+          },
+          "Path": {
+            "required": true,
+            "type": "string"
+          }
+        }
+      }
+    },
+    "ScriptsTop": {
+      "format": "tabs",
+      "required": true,
+      "type": "array",
+      "items": {
+        "headerTemplate": "<script src='{{self.Path}}' />",
+        "type": "object",
+        "properties": {
+          "Order": {
+            "required": true,
+            "type": "integer"
+          },
+          "Path": {
+            "required": true,
+            "type": "string"
+          }
+        }
+      }
+    },
+    "ScriptsBottom": {
+      "format": "tabs",
+      "required": true,
+      "type": "array",
+      "items": {
+        "headerTemplate": "<script src='{{self.Path}}' />",
+        "type": "object",
+        "properties": {
+          "Order": {
+            "required": true,
+            "type": "integer"
+          },
+          "Path": {
+            "required": true,
+            "type": "string"
+          }
+        }
+      }
+    }
   }
 }

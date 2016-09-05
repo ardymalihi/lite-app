@@ -11,11 +11,11 @@ namespace LiteApp.Models
 
         public string Route { get; set; }
 
-        public List<MenuItem> MenuItems { get; set; }
+        //public List<MenuItem> MenuItems { get; set; }
 
         public MenuItem()
         {
-            MenuItems = new List<MenuItem>();
+            //MenuItems = new List<MenuItem>();
         }
     }
 }

@@ -62,7 +62,7 @@ namespace LiteApp.Data
         {
             App app = new App {
                 Title = "Test App",
-                MenuItems = new List<MenuItem> {
+                Menus = new List<MenuItem> {
                     new MenuItem {
                         Title = "Home",
                         Route = "/"

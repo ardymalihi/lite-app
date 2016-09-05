@@ -1,5 +1,5 @@
 ﻿@model LiteApp.ViewModels.AppViewModel
-@if (Model.App.MenuItems != null && Model.App.MenuItems.Count > 0)
+@if (Model.App.Menus != null && Model.App.Menus.Count > 0)
 {
 <div class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
@@ -14,7 +14,7 @@
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                @foreach (var menu in Model.App.MenuItems)
+                @foreach (var menu in Model.App.Menus)
                 {
                     <li><a href="@menu.Route">@menu.Title</a></li>
                 }

@@ -13,7 +13,7 @@ namespace LiteApp.Models
 
         public bool ShowHeaderInAllPages { get; set; }
 
-        public List<MenuItem> MenuItems { get; set; }
+        public List<MenuItem> Menus { get; set; }
 
         public List<Page> Pages { get; set; }
 
@@ -29,7 +29,7 @@ namespace LiteApp.Models
 
         public App()
         {
-            MenuItems = new List<MenuItem>();
+            Menus = new List<MenuItem>();
             Pages = new List<Page>();
             Styles = new List<Style>();
             ScriptsTop = new List<Script>();
