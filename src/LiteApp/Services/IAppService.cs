@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Security.Claims;
 
 namespace LiteApp.Services
 {
@@ -13,5 +14,6 @@ namespace LiteApp.Services
         void Save(App app);
 
         Page GetCurrentPage(string route);
+        
     }
 }

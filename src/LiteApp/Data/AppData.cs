@@ -137,7 +137,7 @@ namespace LiteApp.Data
 </div>",
                 Pages = new List<Page> {
                     new Page {
-                        Route = "/home",
+                        Name = "Home",
                         Title = "Home Page",
                         Rows = new List<Row> {
                             new Row {
@@ -212,7 +212,7 @@ namespace LiteApp.Data
                         },
                     }
                     ,new Page {
-                        Route = "/contact",
+                        Name = "Contact",
                         Title = "Contact Us",
                         Rows = new List<Row> {
                             new Row {
@@ -243,9 +243,7 @@ namespace LiteApp.Data
                         },
                     }
                 },
-                FooterHtml = @"
-<hr />
-<p>&copy; 2016 - LiteApp</p>",
+                FooterHtml = $"<hr /><p>&copy; {DateTime.Now.Year} - LiteApp</p>",
                 Styles = new List<Style> {
                     new Style {
                         Path = "/lib/bootstrap/dist/css/bootstrap.css"
@@ -265,7 +263,7 @@ namespace LiteApp.Data
                         Path = "/js/site.js"
                     }
                 },
-                NotFoundHtml = "Page Not Found"
+                NotFoundHtml = "<h1>Page Not Found</h1>"
             };
 
             return app;

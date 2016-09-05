@@ -9,6 +9,8 @@ using LiteApp.Models;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Newtonsoft.Json.Schema;
+using Microsoft.AspNetCore.Http.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace LiteApp.Controllers
 {
@@ -20,6 +22,21 @@ namespace LiteApp.Controllers
         {
             _appService = appService;
         }
+
+        public IActionResult Login(string returnUrl = "/")
+        {
+            return new ChallengeResult("Auth0", new AuthenticationProperties() { RedirectUri = returnUrl });
+        }
+
+        [Authorize]
+        public IActionResult Logout()
+        {
+            HttpContext.Authentication.SignOutAsync("Auth0");
+            HttpContext.Authentication.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+
+            return RedirectToAction("Index", "App");
+        }
+
         public IActionResult Index(string page)
         {
             var pageModel = _appService.GetCurrentPage("/" + page);
@@ -46,16 +63,16 @@ namespace LiteApp.Controllers
         [Authorize(Roles = "admin")]
         public IActionResult Admin()
         {
-            var jsonSchemaGenerator = new JsonSchemaGenerator();
-            var myType = typeof(App);
-            var schemaGenerator = jsonSchemaGenerator.Generate(myType);
-            schemaGenerator.Title = myType.Name;
-            var schema = schemaGenerator.ToString();
+            //var jsonSchemaGenerator = new JsonSchemaGenerator();
+            //var myType = typeof(App);
+            //var schemaGenerator = jsonSchemaGenerator.Generate(myType);
+            //schemaGenerator.Title = myType.Name;
+            //var schema = schemaGenerator.ToString();
 
             var adminViewModel = new AdminViewModel
             {
                 App = _appService.App,
-                Schema = schema
+                //Schema = schema
             };
 
             return View(adminViewModel);
@@ -78,7 +95,7 @@ namespace LiteApp.Controllers
         {
             return new Models.Page
             {
-                Route = this.Request.Path.Value,
+                Name = this.Request.Path.Value.TrimStart(new char[] { '/' }),
                 Rows = new List<Models.Row> {
                     new Models.Row {
                         ClassName = "row",

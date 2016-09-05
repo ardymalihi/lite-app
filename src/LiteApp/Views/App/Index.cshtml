@@ -25,7 +25,7 @@
 
     @Html.Partial("_Menu", Model)
 
-    @if (!String.IsNullOrWhiteSpace(Model.App.HeaderHtml) && (Model.App.ShowHeaderInAllPages || Model.CurrentPage.Route == "/home"))
+    @if (!String.IsNullOrWhiteSpace(Model.App.HeaderHtml) && (Model.App.ShowHeaderInAllPages || Model.CurrentPage.Name.ToLower() == "home"))
     {
         @Html.Raw(Model.App.HeaderHtml)
     }

@@ -18,7 +18,7 @@
             "required": true,
             "type": "string"
           },
-          "Route": {
+          "Name": {
             "required": true,
             "type": "string"
           },
@@ -27,6 +27,7 @@
             "required": true,
             "type": "array",
             "items": {
+              "headerTemplate": "Row {{ i1 }}",
               "type": "object",
               "properties": {
                 "ClassName": {
@@ -38,6 +39,7 @@
                   "required": true,
                   "type": "array",
                   "items": {
+                    "headerTemplate": "Column {{ i1 }}",
                     "type": "object",
                     "properties": {
                       "ClassName": {
@@ -48,6 +50,7 @@
                         "format": "tabs",
                         "type": "array",
                         "items": {
+                          "headerTemplate": "Module {{ i1 }}",
                           "type": "object",
                           "properties": {
                             "Content": {

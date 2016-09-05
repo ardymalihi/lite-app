@@ -9,7 +9,7 @@ namespace LiteApp.Models
     {
         public string Title { get; set; }
 
-        public string Route { get; set; }
+        public string Name { get; set; }
 
         public List<Row> Rows { get; set; }
 

@@ -108,9 +108,9 @@ namespace LiteApp
                 );
 
                 routes.MapRoute(
-                    "Account",
+                    "App",
                     "{controller}/{action}",
-                    new { controller = "Account" }
+                    new { controller = "App" }
                 );
             });
         }
