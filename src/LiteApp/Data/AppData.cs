@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Hosting;
 using Newtonsoft.Json;
 using System.IO;
+using LiteApp.Common;
 
 namespace LiteApp.Data
 {
@@ -219,20 +220,10 @@ namespace LiteApp.Data
                                     new Col {
                                         ClassName = "col-md-12",
                                         Modules = new List<Module> {
-                                            new HtmlModule {
-                                                Content = @"
-<h3>How to find us?</h3>
-<address>
-    One Microsoft Way<br />
-    Redmond, WA 98052-6399<br />
-    <abbr title='Phone'>P:</abbr>
-    425.555.0100
-</address>
-
-<address>
-    <strong>Support:</strong> <a href='mailto:Support@example.com'>Support@example.com</a><br />
-    <strong>Marketing:</strong> <a href='mailto:Marketing@example.com'>Marketing@example.com</a>
-</address>"
+                                            new ContactModule {
+                                                Email = "Support@example.com",
+                                                Phone = "425.555.0100",
+                                                Address = "One Microsoft Way, Redmond, WA 98052-6399"
                                             }
                                         }
                                     }

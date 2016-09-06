@@ -55,7 +55,7 @@
           disable_edit_json: true,
           disable_properties: true,
           disable_array_reorder: true,
-          keep_oneof_values: false,
+          //keep_oneof_values: false,
 
         // The schema for the editor
         schema: {
@@ -70,10 +70,15 @@
       // Hook up the submit button to log to the console
       document.getElementById('submit').addEventListener('click',function() {
           // Get the value from the editor
-          $.post("/app/save", editor.getValue(), function() {
-              document.location.href = "/";
+          $.ajax({
+              type: "POST",
+              contentType: "application/json; charset=utf-8",
+              url: "/app/save",
+              data: JSON.stringify(editor.getValue()),
+              success: function (result) {
+                  document.location.href = "/";
+              }
           });
-
       });
 
       // Hook up the Restore to Default button

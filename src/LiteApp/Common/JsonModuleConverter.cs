@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace LiteApp.Data
+namespace LiteApp.Common
 {
     public class JsonModuleConverter : Newtonsoft.Json.Converters.CustomCreationConverter<Module>
     {

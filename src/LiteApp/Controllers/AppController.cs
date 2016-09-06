@@ -11,6 +11,9 @@ using Microsoft.AspNetCore.Authorization;
 using Newtonsoft.Json.Schema;
 using Microsoft.AspNetCore.Http.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
+using LiteApp.Common;
 
 namespace LiteApp.Controllers
 {
@@ -80,9 +83,11 @@ namespace LiteApp.Controllers
 
         [Authorize(Roles = "admin")]
         [HttpPost]
-        public IActionResult Save(App request)
+        public IActionResult Save([FromBody]JObject request)
         {
-            _appService.Save(request);
+            string json = request.ToString();
+            App app = JsonConvert.DeserializeObject<App>(json, new JsonModuleConverter());
+            _appService.Save(app);
             return Ok();
         }
 

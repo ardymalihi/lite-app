@@ -1,0 +1,11 @@
+﻿@model LiteApp.Models.ContactModule
+<h3>How to find us?</h3>
+<address>
+    @Model.Address<br />
+    <abbr title='Phone'>P:</abbr>
+    @Model.Phone
+</address>
+
+<address>
+    <strong>Email:</strong> <a href='mailto:@(Model.Email)'>@Model.Email</a>
+</address>
