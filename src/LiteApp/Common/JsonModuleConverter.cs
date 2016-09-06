@@ -2,9 +2,6 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace LiteApp.Common
 {
@@ -17,16 +14,8 @@ namespace LiteApp.Common
 
         public Module Create(Type objectType, JObject jObject)
         {
-            var type = (string)jObject.Property("Type");
-            switch (type)
-            {
-                case "HtmlModule":
-                    return new HtmlModule();
-                case "ContactModule":
-                    return new ContactModule();
-            }
-
-            throw new Exception(String.Format("The given vehicle type {0} is not supported!", type));
+            // Instansiate module with the given type
+            return Activator.CreateInstance(Type.GetType($"{typeof(Module).Namespace}.{(string)jObject.Property("Type")}")) as Module;
         }
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)

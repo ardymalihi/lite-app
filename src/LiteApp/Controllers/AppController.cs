@@ -66,16 +66,9 @@ namespace LiteApp.Controllers
         [Authorize(Roles = "admin")]
         public IActionResult Admin()
         {
-            //var jsonSchemaGenerator = new JsonSchemaGenerator();
-            //var myType = typeof(App);
-            //var schemaGenerator = jsonSchemaGenerator.Generate(myType);
-            //schemaGenerator.Title = myType.Name;
-            //var schema = schemaGenerator.ToString();
-
             var adminViewModel = new AdminViewModel
             {
                 App = _appService.App,
-                //Schema = schema
             };
 
             return View(adminViewModel);
@@ -98,16 +91,16 @@ namespace LiteApp.Controllers
 
         private Page GetNotFoundPage()
         {
-            return new Models.Page
+            return new Page
             {
-                Name = this.Request.Path.Value.TrimStart(new char[] { '/' }),
-                Rows = new List<Models.Row> {
-                    new Models.Row {
+                Name = Request.Path.Value.TrimStart(new char[] { '/' }),
+                Rows = new List<Row> {
+                    new Row {
                         ClassName = "row",
-                        Cols = new List<Models.Col> {
-                            new Models.Col {
+                        Cols = new List<Col> {
+                            new Col {
                                 ClassName = "col-md-12",
-                                Modules = new List<Models.Module> {
+                                Modules = new List<Module> {
                                     new HtmlModule {
                                         Content = _appService.App.NotFoundHtml
                                     }
