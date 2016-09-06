@@ -57,6 +57,11 @@
                               "title": "Html Module",
                               "type": "object",
                               "properties": {
+                                "Type": {
+                                  "type": "string",
+                                  "default": "HtmlModule",
+                                  "readonly": true
+                                },
                                 "Content": {
                                   "format": "textarea",
                                   "options": {
@@ -71,6 +76,11 @@
                               "title": "Contact Module",
                               "type": "object",
                               "properties": {
+                                "Type": {
+                                  "type": "string",
+                                  "default": "ContactModule",
+                                  "readonly": true
+                                },
                                 "Email": {
                                   "required": true,
                                   "type": "string"
