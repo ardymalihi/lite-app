@@ -35,11 +35,8 @@ namespace LiteApp.Data
             }
             else
             {
-                new ConfigurationBuilder()
-                        .SetBasePath(_env.ContentRootPath)
-                        .AddJsonFile(FILE_NAME, true)
-                        .Build()
-                        .Bind(app);
+                var json = File.ReadAllText(Path.Combine(_env.ContentRootPath, FILE_NAME));
+                app = JsonConvert.DeserializeObject<App>(json, new JsonModuleConverter());
 
                 return app;
             }
@@ -49,7 +46,8 @@ namespace LiteApp.Data
         {
             var appDataFile = File.Create(Path.Combine(_env.ContentRootPath, FILE_NAME));
             var appDataWriter = new StreamWriter(appDataFile);
-            appDataWriter.WriteLine(JsonConvert.SerializeObject(app, Formatting.Indented));
+            var json = JsonConvert.SerializeObject(app, Formatting.Indented, new JsonModuleConverter());
+            appDataWriter.WriteLine(json);
             appDataWriter.Dispose();
         }
 
@@ -146,7 +144,7 @@ namespace LiteApp.Data
                                     new Col {
                                         ClassName = "col-md-3",
                                         Modules = new List<Module> {
-                                            new Module {
+                                            new HtmlModule {
                                                 Content = @"
 <h2>Application uses</h2>
 <ul>
@@ -160,7 +158,7 @@ namespace LiteApp.Data
                                     new Col {
                                         ClassName = "col-md-3",
                                         Modules = new List<Module> {
-                                            new Module {
+                                            new HtmlModule {
                                                 Content = @"
 <h2>How to</h2>
 <ul>
@@ -178,7 +176,7 @@ namespace LiteApp.Data
                                     new Col {
                                         ClassName = "col-md-3",
                                         Modules = new List<Module> {
-                                            new Module {
+                                            new HtmlModule {
                                                 Content = @"
 <h2>Overview</h2>
 <ul>
@@ -196,7 +194,7 @@ namespace LiteApp.Data
                                     new Col {
                                         ClassName = "col-md-3",
                                         Modules = new List<Module> {
-                                            new Module {
+                                            new HtmlModule {
                                                 Content = @"
 <h2>Run & Deploy</h2>
 <ul>
@@ -221,7 +219,7 @@ namespace LiteApp.Data
                                     new Col {
                                         ClassName = "col-md-12",
                                         Modules = new List<Module> {
-                                            new Module {
+                                            new HtmlModule {
                                                 Content = @"
 <h3>How to find us?</h3>
 <address>

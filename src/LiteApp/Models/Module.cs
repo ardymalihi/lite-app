@@ -7,6 +7,13 @@ namespace LiteApp.Models
 {
     public class Module
     {
-        public string Content { get; set; }
+        public string Type
+        {
+            get
+            {
+                return this.GetType().Name;
+            }
+        }
+        
     }
 }

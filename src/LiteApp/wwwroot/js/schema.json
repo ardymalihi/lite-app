@@ -50,18 +50,42 @@
                         "format": "tabs",
                         "type": "array",
                         "items": {
+                          "Title": "Module",
                           "headerTemplate": "Module {{ i1 }}",
-                          "type": "object",
-                          "properties": {
-                            "Content": {
-                              "format": "textarea",
-                              "options": {
-                                "wysiwyg": true
-                              },
-                              "required": true,
-                              "type": "string"
+                          "oneOf": [
+                            {
+                              "title": "Html Module",
+                              "type": "object",
+                              "properties": {
+                                "Content": {
+                                  "format": "textarea",
+                                  "options": {
+                                    "wysiwyg": true
+                                  },
+                                  "required": true,
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            {
+                              "title": "Contact Module",
+                              "type": "object",
+                              "properties": {
+                                "Email": {
+                                  "required": true,
+                                  "type": "string"
+                                },
+                                "Phone": {
+                                  "required": true,
+                                  "type": "string"
+                                },
+                                "Address": {
+                                  "required": true,
+                                  "type": "string"
+                                }
+                              }
                             }
-                          }
+                          ]
                         }
                       }
                     }

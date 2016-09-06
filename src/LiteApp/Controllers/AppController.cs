@@ -103,7 +103,7 @@ namespace LiteApp.Controllers
                             new Models.Col {
                                 ClassName = "col-md-12",
                                 Modules = new List<Models.Module> {
-                                    new Module {
+                                    new HtmlModule {
                                         Content = _appService.App.NotFoundHtml
                                     }
                                 }

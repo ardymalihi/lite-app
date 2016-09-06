@@ -1,2 +1,2 @@
 ﻿@model LiteApp.ViewModels.ModuleViewModel
-@Html.Raw(Model.CurrentModule.Content)
+@Html.Partial("_" + Model.CurrentModule.Type, Model.CurrentModule)
