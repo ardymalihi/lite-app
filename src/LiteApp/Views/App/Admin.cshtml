@@ -1,5 +1,6 @@
 ﻿@model LiteApp.ViewModels.AdminViewModel
 @{
+    Layout = null;
     var data = Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.App));
 }
 <!DOCTYPE html>

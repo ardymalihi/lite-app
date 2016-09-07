@@ -1,73 +1,23 @@
 ﻿@model LiteApp.ViewModels.AppViewModel
-@{ 
-    var flatStyles = Model.App.Styles.Union(Model.CurrentPage.Styles).OrderBy(o => o.Order);
-    var flatScriptsTop = Model.App.ScriptsTop.Union(Model.CurrentPage.ScriptsTop).OrderBy(o => o.Order);
-    var flatScriptsBottom = Model.App.ScriptsBottom.Union(Model.CurrentPage.ScriptsBottom).OrderBy(o => o.Order);
-}
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@Model.CurrentPage.Title</title>
+@foreach (var row in Model.CurrentPage.Rows)
+{
+    <div class="@row.ClassName">
 
-    @foreach (var style in flatStyles)
-    {
-        <link rel="stylesheet" href="@style.Path" />
-    }
-    
-    @foreach (var script in flatScriptsTop)
-    {
-        <script src="@script.Path"></script>
-    }
-</head>
-<body>
-
-    @Html.Partial("_Menu", Model)
-
-    @if (!String.IsNullOrWhiteSpace(Model.App.HeaderHtml) && (Model.App.ShowHeaderInAllPages || Model.CurrentPage.Name.ToLower() == "home"))
-    {
-        @Html.Raw(Model.App.HeaderHtml)
-    }
-
-    <div class="container" role="main">
-
-        @foreach (var row in Model.CurrentPage.Rows)
-        {
-            <div class="@row.ClassName">
-
-                @foreach (var col in row.Cols)
+        @foreach (var col in row.Cols)
                 {
-                    <div class="@col.ClassName">
+            <div class="@col.ClassName">
 
-                        @foreach (var module in col.Modules)
-                        {
-                            @Html.Partial("_Module",
+                @foreach (var module in col.Modules)
+                {
+                    @Html.Partial("_Module",
                    new LiteApp.ViewModels.ModuleViewModel
                    {
                        App = Model.App,
                        CurrentPage = Model.CurrentPage,
                        CurrentModule = module
                    })
-                        }
-                    </div>
                 }
             </div>
         }
-
-        @if (!String.IsNullOrWhiteSpace(Model.App.FooterHtml))
-        {
-            <footer>
-                @Html.Raw(Model.App.FooterHtml)
-            </footer>
-        }
-
-        </div>
-
-        @foreach (var script in flatScriptsBottom)
-        {
-            <script src="@script.Path"></script>
-        }
-
-</body>
-</html>
+    </div>
+}

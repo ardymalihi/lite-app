@@ -1,0 +1,52 @@
+﻿@{ 
+    var layoutViewModel = (LiteApp.ViewModels.LayoutViewModel)ViewBag.LayoutViewModel;
+    var pageName = (layoutViewModel.AppViewModel.CurrentPage != null) ? layoutViewModel.AppViewModel.CurrentPage.Name.ToLower() : "";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@layoutViewModel.PageTitle</title>
+
+    @foreach (var style in layoutViewModel.Styles)
+    {
+        <link rel="stylesheet" href="@style.Path" />
+    }
+
+    @foreach (var script in layoutViewModel.ScriptsTop)
+    {
+        <script src="@script.Path"></script>
+    }
+</head>
+<body>
+
+    @Html.Partial("_Menu", layoutViewModel.AppViewModel)
+
+    @if (!String.IsNullOrWhiteSpace(layoutViewModel.AppViewModel.App.HeaderHtml) &&
+        (layoutViewModel.AppViewModel.App.ShowHeaderInAllPages ||
+        pageName == "home"))
+    {
+        @Html.Raw(layoutViewModel.AppViewModel.App.HeaderHtml)
+    }
+
+    <div class="container" role="main">
+
+        @RenderBody()
+
+        @if (!String.IsNullOrWhiteSpace(layoutViewModel.AppViewModel.App.FooterHtml))
+        {
+            <footer>
+                @Html.Raw(layoutViewModel.AppViewModel.App.FooterHtml)
+            </footer>
+        }
+
+    </div>
+
+    @foreach (var script in layoutViewModel.ScriptsBottom)
+    {
+        <script src="@script.Path"></script>
+    }
+
+</body>
+</html>

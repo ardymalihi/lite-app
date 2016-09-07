@@ -43,10 +43,11 @@ namespace LiteApp.Controllers
         public IActionResult Index(string page)
         {
             var pageModel = _appService.GetCurrentPage("/" + page);
+
             var appViewModel = new AppViewModel
             {
                 App = _appService.App,
-                CurrentPage = pageModel ?? GetNotFoundPage()
+                CurrentPage = pageModel
             };
 
             if (User.Identity.IsAuthenticated)
@@ -60,7 +61,41 @@ namespace LiteApp.Controllers
                 };
             }
 
-            return View(appViewModel);
+            ViewBag.LayoutViewModel = CreateLayoutViewModel(appViewModel);
+
+            if (pageModel != null)
+            {
+                return View(appViewModel);
+            }
+            else
+            {
+                return View("NotFound");
+            }
+            
+        }
+
+        private LayoutViewModel CreateLayoutViewModel(AppViewModel appViewModel)
+        {
+            if (appViewModel.CurrentPage == null)
+            {
+                return new LayoutViewModel {
+                    AppViewModel = appViewModel,
+                    PageTitle = "Page Not Found",
+                    Styles = appViewModel.App.Styles.OrderBy(o => o.Order).ToArray(),
+                    ScriptsTop = appViewModel.App.ScriptsTop.OrderBy(o => o.Order).ToArray(),
+                    ScriptsBottom = appViewModel.App.ScriptsBottom.OrderBy(o => o.Order).ToArray()
+                };
+            }
+            else
+            {
+                return new LayoutViewModel {
+                    AppViewModel = appViewModel,
+                    PageTitle = appViewModel.CurrentPage.Title,
+                    Styles = appViewModel.App.Styles.Union(appViewModel.CurrentPage.Styles).OrderBy(o => o.Order).ToArray(),
+                    ScriptsTop = appViewModel.App.ScriptsTop.Union(appViewModel.CurrentPage.ScriptsTop).OrderBy(o => o.Order).ToArray(),
+                    ScriptsBottom = appViewModel.App.ScriptsBottom.Union(appViewModel.CurrentPage.ScriptsBottom).OrderBy(o => o.Order).ToArray()
+                };
+            }
         }
 
         [Authorize(Roles = "admin")]
@@ -87,29 +122,6 @@ namespace LiteApp.Controllers
         public IActionResult Error()
         {
             return View();
-        }
-
-        private Page GetNotFoundPage()
-        {
-            return new Page
-            {
-                Name = Request.Path.Value.TrimStart(new char[] { '/' }),
-                Rows = new List<Row> {
-                    new Row {
-                        ClassName = "row",
-                        Cols = new List<Col> {
-                            new Col {
-                                ClassName = "col-md-12",
-                                Modules = new List<Module> {
-                                    new HtmlModule {
-                                        Content = _appService.App.NotFoundHtml
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            };
         }
     }
 }

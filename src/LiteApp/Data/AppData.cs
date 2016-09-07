@@ -251,8 +251,7 @@ namespace LiteApp.Data
                     new Script {
                         Path = "/js/site.js"
                     }
-                },
-                NotFoundHtml = "<h1>Page Not Found</h1>"
+                }
             };
 
             return app;

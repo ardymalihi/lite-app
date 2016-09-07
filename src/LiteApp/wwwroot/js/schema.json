@@ -203,14 +203,6 @@
       "required": true,
       "type": "string"
     },
-    "NotFoundHtml": {
-      "format": "textarea",
-      "options": {
-        "wysiwyg": true
-      },
-      "required": true,
-      "type": "string"
-    },
     "Styles": {
       "format": "tabs",
       "required": true,
