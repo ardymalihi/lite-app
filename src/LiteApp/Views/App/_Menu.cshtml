@@ -22,15 +22,15 @@
             <ul class="nav navbar-nav navbar-right">
                 @if (User.IsInRole("admin"))
                 {
-                    <li><a asp-controller="App" asp-action="Admin">Admin</a></li>
+                    <li><a asp-controller="Admin" asp-action="Panel">Admin</a></li>
                 }
                 @if (User.Identity.IsAuthenticated)
                 {
-                    <li><a asp-controller="App" asp-action="Logout">Logout @Model.UserProfile.Name</a></li>
+                    <li><a asp-controller="Account" asp-action="Logout">Logout @Model.UserProfile.Name</a></li>
                 }
                 else
                 {
-                    <li><a asp-controller="App" asp-action="Login">Login</a></li>
+                    <li><a asp-controller="Account" asp-action="Login">Login</a></li>
                 }
             </ul>
 

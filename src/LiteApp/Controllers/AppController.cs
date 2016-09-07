@@ -1,122 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using LiteApp.Services;
-using LiteApp.ViewModels;
-using LiteApp.Models;
-using System.Security.Claims;
-using Microsoft.AspNetCore.Authorization;
-using Newtonsoft.Json.Schema;
-using Microsoft.AspNetCore.Http.Authentication;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Newtonsoft.Json.Linq;
-using Newtonsoft.Json;
-using LiteApp.Common;
+
 
 namespace LiteApp.Controllers
 {
-    public class AppController : Controller
+    public class AppController : BaseController
     {
-        private IAppService _appService;
 
-        public AppController(IAppService appService)
+        public AppController(IAppService appService) : base(appService) { }
+        
+
+        public IActionResult Index()
         {
-            _appService = appService;
-        }
-
-        public IActionResult Login(string returnUrl = "/")
-        {
-            return new ChallengeResult("Auth0", new AuthenticationProperties() { RedirectUri = returnUrl });
-        }
-
-        [Authorize]
-        public IActionResult Logout()
-        {
-            HttpContext.Authentication.SignOutAsync("Auth0");
-            HttpContext.Authentication.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-
-            return RedirectToAction("Index", "App");
-        }
-
-        public IActionResult Index(string page)
-        {
-            var pageModel = _appService.GetCurrentPage("/" + page);
-
-            var appViewModel = new AppViewModel
+            if (this.CurrentPage != null)
             {
-                App = _appService.App,
-                CurrentPage = pageModel
-            };
-
-            if (User.Identity.IsAuthenticated)
-            {
-                appViewModel.UserProfile = new UserProfileViewModel
-                {
-                    Name = User.Claims.FirstOrDefault(c => c.Type == "name")?.Value,
-                    EmailAddress = User.Claims.FirstOrDefault(c => c.Type == "emailaddress")?.Value,
-                    ProfileImage = User.Claims.FirstOrDefault(c => c.Type == "picture")?.Value,
-                    Country = User.Claims.FirstOrDefault(c => c.Type == "country")?.Value
-                };
-            }
-
-            ViewBag.LayoutViewModel = CreateLayoutViewModel(appViewModel);
-
-            if (pageModel != null)
-            {
-                return View(appViewModel);
+                return View(this.AppViewModel);
             }
             else
             {
                 return View("NotFound");
             }
             
-        }
-
-        private LayoutViewModel CreateLayoutViewModel(AppViewModel appViewModel)
-        {
-            if (appViewModel.CurrentPage == null)
-            {
-                return new LayoutViewModel {
-                    AppViewModel = appViewModel,
-                    PageTitle = "Page Not Found",
-                    Styles = appViewModel.App.Styles.OrderBy(o => o.Order).ToArray(),
-                    ScriptsTop = appViewModel.App.ScriptsTop.OrderBy(o => o.Order).ToArray(),
-                    ScriptsBottom = appViewModel.App.ScriptsBottom.OrderBy(o => o.Order).ToArray()
-                };
-            }
-            else
-            {
-                return new LayoutViewModel {
-                    AppViewModel = appViewModel,
-                    PageTitle = appViewModel.CurrentPage.Title,
-                    Styles = appViewModel.App.Styles.Union(appViewModel.CurrentPage.Styles).OrderBy(o => o.Order).ToArray(),
-                    ScriptsTop = appViewModel.App.ScriptsTop.Union(appViewModel.CurrentPage.ScriptsTop).OrderBy(o => o.Order).ToArray(),
-                    ScriptsBottom = appViewModel.App.ScriptsBottom.Union(appViewModel.CurrentPage.ScriptsBottom).OrderBy(o => o.Order).ToArray()
-                };
-            }
-        }
-
-        [Authorize(Roles = "admin")]
-        public IActionResult Admin()
-        {
-            var adminViewModel = new AdminViewModel
-            {
-                App = _appService.App,
-            };
-
-            return View(adminViewModel);
-        }
-
-        [Authorize(Roles = "admin")]
-        [HttpPost]
-        public IActionResult Save([FromBody]JObject request)
-        {
-            string json = request.ToString();
-            App app = JsonConvert.DeserializeObject<App>(json, new JsonModuleConverter());
-            _appService.Save(app);
-            return Ok();
         }
 
         public IActionResult Error()

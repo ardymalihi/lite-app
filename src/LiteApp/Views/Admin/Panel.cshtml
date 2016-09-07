@@ -74,7 +74,7 @@
           $.ajax({
               type: "POST",
               contentType: "application/json; charset=utf-8",
-              url: "/app/save",
+              url: "/admin/save",
               data: JSON.stringify(editor.getValue()),
               success: function (result) {
                   document.location.href = "/";

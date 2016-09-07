@@ -35,6 +35,11 @@ namespace LiteApp.Services
         public Page GetCurrentPage(string route)
         {
             var compareValue = route.ToLower().TrimEnd(new char[] { ' ', '?' }).TrimStart('/');
+
+            if (string.IsNullOrWhiteSpace(compareValue))
+            {
+                compareValue = "home";
+            }
             return _app.Pages.FirstOrDefault(o => o.Name.ToLower() == compareValue);
         }
     }

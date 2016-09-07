@@ -100,12 +100,14 @@ namespace LiteApp
                 routes.MapRoute(
                     "Page",
                     "{page}",
-                    new { controller = "App", action = "Index", page= "Home" }
+                    new { controller = "App", action = "Index"}
                 );
 
                 routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    "Default",
+                    "{controller}/{action}/{id?}",
+                    new { controller = "App", action = "Index"}
+                );
             });
         }
     }
