@@ -21,3 +21,28 @@
         }
     </div>
 }
+
+@section styles{
+    <!--Page Styles-->
+@foreach (var style in Model.CurrentPage.Styles)
+{
+    <link rel="stylesheet" href="@style.Path" />
+}
+}
+
+@section scriptsTop {
+    <!--Page Scripts-->
+@foreach (var script in Model.CurrentPage.ScriptsTop)
+{
+    <script src="@script.Path"></script>
+}
+}
+
+@section scriptsBottom {
+    <!--Page Scripts-->
+@foreach (var script in Model.CurrentPage.ScriptsBottom)
+{
+    <script src="@script.Path"></script>
+}
+
+}

@@ -65,28 +65,16 @@ namespace LiteApp.Controllers
 
         private LayoutViewModel CreateLayoutViewModel(AppViewModel appViewModel)
         {
-            if (appViewModel.CurrentPage == null)
+            string PageName = appViewModel.CurrentPage?.Name ?? "";
+            var PageTitle = appViewModel.CurrentPage?.Title ?? "Page Not Found";
+
+            return new LayoutViewModel
             {
-                return new LayoutViewModel
-                {
-                    AppViewModel = appViewModel,
-                    PageTitle = "Page Not Found",
-                    Styles = appViewModel.App.Styles.OrderBy(o => o.Order).ToArray(),
-                    ScriptsTop = appViewModel.App.ScriptsTop.OrderBy(o => o.Order).ToArray(),
-                    ScriptsBottom = appViewModel.App.ScriptsBottom.OrderBy(o => o.Order).ToArray()
-                };
-            }
-            else
-            {
-                return new LayoutViewModel
-                {
-                    AppViewModel = appViewModel,
-                    PageTitle = appViewModel.CurrentPage.Title,
-                    Styles = appViewModel.App.Styles.Union(appViewModel.CurrentPage.Styles).OrderBy(o => o.Order).ToArray(),
-                    ScriptsTop = appViewModel.App.ScriptsTop.Union(appViewModel.CurrentPage.ScriptsTop).OrderBy(o => o.Order).ToArray(),
-                    ScriptsBottom = appViewModel.App.ScriptsBottom.Union(appViewModel.CurrentPage.ScriptsBottom).OrderBy(o => o.Order).ToArray()
-                };
-            }
+                ShowHeader = !string.IsNullOrWhiteSpace(appViewModel.App.HeaderHtml) && (appViewModel.App.ShowHeaderInAllPages || PageName.ToLower() == "home"),
+                AppViewModel = appViewModel,
+                PageTitle = PageTitle,
+                PageName = PageName
+            };
         }
     }
 }

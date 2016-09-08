@@ -112,10 +112,6 @@
               "headerTemplate": "<link href='{{self.Path}}'>",
               "type": "object",
               "properties": {
-                "Order": {
-                  "required": true,
-                  "type": "integer"
-                },
                 "Path": {
                   "required": true,
                   "type": "string"
@@ -131,10 +127,6 @@
               "headerTemplate": "<script src='{{self.Path}}' />",
               "type": "object",
               "properties": {
-                "Order": {
-                  "required": true,
-                  "type": "integer"
-                },
                 "Path": {
                   "required": true,
                   "type": "string"
@@ -150,10 +142,6 @@
               "headerTemplate": "<script src='{{self.Path}}' />",
               "type": "object",
               "properties": {
-                "Order": {
-                  "required": true,
-                  "type": "integer"
-                },
                 "Path": {
                   "required": true,
                   "type": "string"
@@ -211,10 +199,6 @@
         "headerTemplate": "<link href='{{self.Path}}'>",
         "type": "object",
         "properties": {
-          "Order": {
-            "required": true,
-            "type": "integer"
-          },
           "Path": {
             "required": true,
             "type": "string"
@@ -230,10 +214,6 @@
         "headerTemplate": "<script src='{{self.Path}}' />",
         "type": "object",
         "properties": {
-          "Order": {
-            "required": true,
-            "type": "integer"
-          },
           "Path": {
             "required": true,
             "type": "string"
@@ -249,10 +229,6 @@
         "headerTemplate": "<script src='{{self.Path}}' />",
         "type": "object",
         "properties": {
-          "Order": {
-            "required": true,
-            "type": "integer"
-          },
           "Path": {
             "required": true,
             "type": "string"

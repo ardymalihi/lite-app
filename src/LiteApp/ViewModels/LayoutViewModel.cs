@@ -8,15 +8,13 @@ namespace LiteApp.ViewModels
 {
     public class LayoutViewModel
     {
+        public string PageName { get; set; }
+
         public string PageTitle  { get; set; }
 
         public AppViewModel AppViewModel { get; set; }
 
-        public Style[] Styles { get; set; }
-
-        public Script[] ScriptsTop { get; set; }
-
-        public Script[] ScriptsBottom { get; set; }
+        public bool ShowHeader { get; set; }
 
     }
 }

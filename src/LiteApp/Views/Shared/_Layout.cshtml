@@ -1,6 +1,5 @@
 ﻿@{ 
     var layoutViewModel = (LiteApp.ViewModels.LayoutViewModel)ViewBag.LayoutViewModel;
-    var pageName = (layoutViewModel.AppViewModel.CurrentPage != null) ? layoutViewModel.AppViewModel.CurrentPage.Name.ToLower() : "";
 }
 <!DOCTYPE html>
 <html>
@@ -8,33 +7,37 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@layoutViewModel.PageTitle</title>
-
-    @foreach (var style in layoutViewModel.Styles)
+    
+    <!--App Styles-->
+    @foreach (var style in layoutViewModel.AppViewModel.App.Styles)
     {
         <link rel="stylesheet" href="@style.Path" />
     }
-
-    @foreach (var script in layoutViewModel.ScriptsTop)
+    @RenderSection("styles", required: false)
+    
+    <!--App Scripts-->
+    @foreach (var script in layoutViewModel.AppViewModel.App.ScriptsTop)
     {
         <script src="@script.Path"></script>
     }
+    @RenderSection("scriptsTop", required: false)
+
 </head>
 <body>
 
     @Html.Partial("_Menu", layoutViewModel.AppViewModel)
 
-    @if (!String.IsNullOrWhiteSpace(layoutViewModel.AppViewModel.App.HeaderHtml) &&
-        (layoutViewModel.AppViewModel.App.ShowHeaderInAllPages ||
-        pageName == "home"))
+    @if (layoutViewModel.ShowHeader)
     {
         @Html.Raw(layoutViewModel.AppViewModel.App.HeaderHtml)
     }
 
     <div class="container" role="main">
-
+    <!--Start Body-->
         @RenderBody()
+    <!--End Body-->
 
-        @if (!String.IsNullOrWhiteSpace(layoutViewModel.AppViewModel.App.FooterHtml))
+        @if (!string.IsNullOrWhiteSpace(layoutViewModel.AppViewModel.App.FooterHtml))
         {
             <footer>
                 @Html.Raw(layoutViewModel.AppViewModel.App.FooterHtml)
@@ -42,11 +45,12 @@
         }
 
     </div>
-
-    @foreach (var script in layoutViewModel.ScriptsBottom)
+    <!--App Scripts-->
+    @foreach (var script in layoutViewModel.AppViewModel.App.ScriptsBottom)
     {
         <script src="@script.Path"></script>
     }
+    @RenderSection("scriptsBottom", required: false)
 
 </body>
 </html>
