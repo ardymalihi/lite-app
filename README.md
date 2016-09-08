@@ -1,5 +1,5 @@
 # LiteApp
-Asp.net Core Application Framework fro creating dynamic type of applications like CMS CRM ERP
+Lightweight Asp.net Core CMS using Auth0 for Authentication/Authorization, Bootstrap for UI/Layout and JSON-based database
 
 # Admin Demo
 ## user: admin@admin.test
