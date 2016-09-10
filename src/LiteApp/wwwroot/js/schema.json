@@ -32,7 +32,8 @@
               "properties": {
                 "ClassName": {
                   "required": true,
-                  "type": "string"
+                  "type": "string",
+                  "default": "row"
                 },
                 "Cols": {
                   "format": "tabs",
@@ -44,7 +45,8 @@
                     "properties": {
                       "ClassName": {
                         "required": true,
-                        "type": "string"
+                        "type": "string",
+                        "default": "col-md-12"
                       },
                       "Modules": {
                         "format": "tabs",
@@ -95,9 +97,9 @@
                                   "readonly": true
                                 },
                                 "Content": {
-                                  "format": "textarea",
+                                  "format": "html",
                                   "options": {
-                                    "wysiwyg": true
+                                    "wysiwyg": false
                                   },
                                   "required": true,
                                   "type": "string"
@@ -159,9 +161,9 @@
       }
     },
     "HeaderHtml": {
-      "format": "textarea",
+      "format": "html",
       "options": {
-        "wysiwyg": true
+        "wysiwyg": false
       },
       "required": true,
       "type": "string"
@@ -171,9 +173,9 @@
       "type": "boolean"
     },
     "FooterHtml": {
-      "format": "textarea",
+      "format": "html",
       "options": {
-        "wysiwyg": true
+        "wysiwyg": false
       },
       "required": true,
       "type": "string"

@@ -54,9 +54,6 @@ label {
 }
 
 select {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
     padding: 4px !important;
     border: 1px solid #ccc;
     font-size: 16px;
