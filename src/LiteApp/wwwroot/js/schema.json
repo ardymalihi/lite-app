@@ -58,7 +58,7 @@
                               "required": true,
                               "type": "array",
                               "items": {
-                                "headerTemplate": "<link href='{{self.Path}}'>",
+                                "headerTemplate": "Style {{ i1 }}",
                                 "type": "object",
                                 "properties": {
                                   "Path": {
@@ -73,7 +73,7 @@
                               "required": true,
                               "type": "array",
                               "items": {
-                                "headerTemplate": "<script src='{{self.Path}}' />",
+                                "headerTemplate": "Script {{ i1 }}",
                                 "type": "object",
                                 "properties": {
                                   "Path": {
@@ -183,7 +183,7 @@
       "required": true,
       "type": "array",
       "items": {
-        "headerTemplate": "<link href='{{self.Path}}'>",
+        "headerTemplate": "Style {{ i1 }}",
         "type": "object",
         "properties": {
           "Path": {
@@ -198,7 +198,7 @@
       "required": true,
       "type": "array",
       "items": {
-        "headerTemplate": "<script src='{{self.Path}}' />",
+        "headerTemplate": "Script {{ i1 }}",
         "type": "object",
         "properties": {
           "Path": {
@@ -213,7 +213,7 @@
       "required": true,
       "type": "array",
       "items": {
-        "headerTemplate": "<script src='{{self.Path}}' />",
+        "headerTemplate": "Script {{ i1 }}",
         "type": "object",
         "properties": {
           "Path": {

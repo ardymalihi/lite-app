@@ -1,5 +1,4 @@
-﻿body {
-}
+﻿
 .fullWidth {
     width: 100%;
     margin-left: auto;
@@ -33,6 +32,32 @@ body {
     border-bottom-style: solid;
 }
 
-.content {
-    margin-top: 80px;
+.main {
+    margin-top:100px;
+}
+
+.json-editor-btn-delete:hover {
+    background-color:#de2424;
+}
+
+.json-editor-btn-delete {
+    background-color:#ff6a00;
+}
+
+.form-control {
+    font-size:16px;
+}
+
+label {
+    font-size:13px;
+    font-weight:bolder;
+}
+
+select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    padding: 4px !important;
+    border: 1px solid #ccc;
+    font-size: 16px;
 }
