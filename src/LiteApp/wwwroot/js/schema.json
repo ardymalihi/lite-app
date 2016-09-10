@@ -52,6 +52,38 @@
                         "items": {
                           "Title": "Module",
                           "headerTemplate": "Module {{ i1 }}",
+                          "properties": {
+                            "Styles": {
+                              "format": "tabs",
+                              "required": true,
+                              "type": "array",
+                              "items": {
+                                "headerTemplate": "<link href='{{self.Path}}'>",
+                                "type": "object",
+                                "properties": {
+                                  "Path": {
+                                    "required": true,
+                                    "type": "string"
+                                  }
+                                }
+                              }
+                            },
+                            "Scripts": {
+                              "format": "tabs",
+                              "required": true,
+                              "type": "array",
+                              "items": {
+                                "headerTemplate": "<script src='{{self.Path}}' />",
+                                "type": "object",
+                                "properties": {
+                                  "Path": {
+                                    "required": true,
+                                    "type": "string"
+                                  }
+                                }
+                              }
+                            }
+                          },
                           "oneOf": [
                             {
                               "title": "Html Module",
@@ -100,51 +132,6 @@
                       }
                     }
                   }
-                }
-              }
-            }
-          },
-          "Styles": {
-            "format": "tabs",
-            "required": true,
-            "type": "array",
-            "items": {
-              "headerTemplate": "<link href='{{self.Path}}'>",
-              "type": "object",
-              "properties": {
-                "Path": {
-                  "required": true,
-                  "type": "string"
-                }
-              }
-            }
-          },
-          "ScriptsTop": {
-            "format": "tabs",
-            "required": true,
-            "type": "array",
-            "items": {
-              "headerTemplate": "<script src='{{self.Path}}' />",
-              "type": "object",
-              "properties": {
-                "Path": {
-                  "required": true,
-                  "type": "string"
-                }
-              }
-            }
-          },
-          "ScriptsBottom": {
-            "format": "tabs",
-            "required": true,
-            "type": "array",
-            "items": {
-              "headerTemplate": "<script src='{{self.Path}}' />",
-              "type": "object",
-              "properties": {
-                "Path": {
-                  "required": true,
-                  "type": "string"
                 }
               }
             }
