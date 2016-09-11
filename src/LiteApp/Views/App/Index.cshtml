@@ -10,7 +10,21 @@
 
                 @foreach (var module in col.Modules)
                 {
-                    @Html.Partial("_Module",
+                    var settings = module.GetSettings();
+                    @if (User.IsInRole("admin") && settings.Actions != null && settings.Actions.Count > 0)
+                    {
+                        <nav class="navbar navbar-default">
+                            <div class="container-fluid">
+                                <div class="navbar-header">
+                                @foreach (var action in module.GetSettings().Actions)
+                                {
+                                    <a href="@action.Route.Replace("{id}",module.Id)" class="navbar-brand">@action.Title</a>
+                                }    
+                                </div>
+                            </div>
+                        </nav>
+                    }
+                   @Html.Partial("_Module",
                    new LiteApp.ViewModels.ModuleViewModel
                    {
                        App = Model.App,

@@ -55,6 +55,11 @@
                           "Title": "Module",
                           "headerTemplate": "Module {{ i1 }}",
                           "properties": {
+                            "Id": {
+                              "type": "string",
+                              "default": null,
+                              "readonly": true
+                            },
                             "Styles": {
                               "format": "tabs",
                               "required": true,

@@ -1,13 +1,32 @@
 ﻿
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 
 namespace LiteApp.Models
 {
-    public class Module
+    public abstract class Module
     {
-        public List<Style> Styles { get; set; }
+        private string _Id;
 
-        public List<Script> Scripts { get; set; }
+        public string Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    _Id = Guid.NewGuid().ToString();
+                }
+                else
+                {
+                    _Id = value;
+                }
+            }
+        }
 
         public string Type
         {
@@ -17,10 +36,17 @@ namespace LiteApp.Models
             }
         }
 
+        public List<Style> Styles { get; set; }
+
+        public List<Script> Scripts { get; set; }
+
         public Module()
         {
+            _Id = Guid.NewGuid().ToString();
             Styles = new List<Style>();
             Scripts = new List<Script>();
         }
+
+        public abstract ModuleSettings GetSettings();
     }
 }
