@@ -11,12 +11,19 @@
                 @foreach (var module in col.Modules)
                 {
                     var settings = module.GetSettings();
-                    @if (User.IsInRole("admin") && settings.Actions != null && settings.Actions.Count > 0)
+                    @if (User.IsInRole("admin") && 
+                        ((settings.Actions != null && 
+                        settings.Actions.Count > 0) || 
+                        (settings.HasSettings)))
                     {
                         <nav class="navbar navbar-default">
                             <div class="container-fluid">
                                 <div class="navbar-header">
-                                @foreach (var action in module.GetSettings().Actions)
+                                @if (settings.HasSettings)
+                                {
+                                    <a href="@($"/Module/Settings/{module.Id}")" class="navbar-brand">Settings</a>
+                                }
+                                @foreach (var action in module.GetSettings().Actions ?? new List<LiteApp.Models.ModuleSettingsAction> { })
                                 {
                                     <a href="@action.Route.Replace("{id}",module.Id)" class="navbar-brand">@action.Title</a>
                                 }    

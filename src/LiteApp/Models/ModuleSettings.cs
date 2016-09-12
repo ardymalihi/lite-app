@@ -7,6 +7,8 @@ namespace LiteApp.Models
 {
     public class ModuleSettings
     {
+        public bool HasSettings { get; set; }
+
         public List<ModuleSettingsAction> Actions { get; set; }
     }
 }

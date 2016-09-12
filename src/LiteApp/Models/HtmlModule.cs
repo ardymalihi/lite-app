@@ -10,10 +10,11 @@ namespace LiteApp.Models
         {
             return new ModuleSettings
             {
+                HasSettings = false,
                 Actions = new List<ModuleSettingsAction> {
                     new ModuleSettingsAction {
                         Title = "Edit",
-                        Route = "/Edit/{id}"
+                        Route = "Html/Edit/{id}"
                     }
                 }
             };

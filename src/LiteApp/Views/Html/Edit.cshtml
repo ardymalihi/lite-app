@@ -1,0 +1,5 @@
+﻿@model LiteApp.ViewModels.ModuleViewModel
+@{ 
+    var content = (Model.CurrentModule as LiteApp.Models.HtmlModule).Content;
+}
+@Html.Raw(content)

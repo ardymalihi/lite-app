@@ -1,7 +1,7 @@
 ﻿using LiteApp.Data;
 using LiteApp.Models;
 using System.Linq;
-
+using System;
 
 namespace LiteApp.Services
 {
@@ -41,6 +41,15 @@ namespace LiteApp.Services
                 compareValue = "home";
             }
             return _app.Pages.FirstOrDefault(o => o.Name.ToLower() == compareValue);
+        }
+
+        public Module GetModule(string moduleId)
+        {
+            return _app.Pages
+                .SelectMany(p => p.Rows)
+                .SelectMany(r => r.Cols)
+                .SelectMany(c => c.Modules)
+                .FirstOrDefault(m => m.Id == moduleId);
         }
     }
 }
