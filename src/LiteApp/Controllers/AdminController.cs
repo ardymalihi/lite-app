@@ -20,6 +20,8 @@ namespace LiteApp.Controllers
 
         public IActionResult Panel()
         {
+            this.Layout.FullRow = true;
+
             var adminViewModel = new AdminViewModel
             {
                 App = this.AppService.App,

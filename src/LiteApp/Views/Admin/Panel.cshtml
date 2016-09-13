@@ -1,104 +1,90 @@
 ﻿@model LiteApp.ViewModels.AdminViewModel
-@{
-    Layout = null;
-}
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8" />
-    <title>Admin Panel</title>
 
-    <!-- Foundation CSS framework (Bootstrap and jQueryUI also supported) -->
-    <link rel='stylesheet' href='//cdnjs.cloudflare.com/ajax/libs/foundation/5.5.3/css/foundation.min.css'>
-    <!-- Font Awesome icons (Bootstrap, Foundation, and jQueryUI also supported) -->
-    <link rel='stylesheet' href='//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css'>
-    
-    <script src="~/js/jsoneditor.js"></script>
-    <script src="~/lib/jquery/dist/jquery.js"></script>
+<button class="btn btn-success" id='submit'>Save</button>
+<button class="btn btn-default" id='restore'>Undo All Changes</button>
+<span class="label label-info" id='valid_indicator'></span>
+<div id='editor_holder' class='large-12 columns'></div>
 
+
+@section styles {
+    <!--Admin Styles-->
     <link href="~/css/admin.css" rel="stylesheet" />
+    <link href="~/lib/font-awesome/css/font-awesome.css" rel="stylesheet" />
+}
+@section scriptsTop {
+    <!--Admin Scripts-->
+    <script src="~/js/jsoneditor.js"></script>
 
     <script>
-    // Set the default CSS theme and icon library globally
-    JSONEditor.defaults.theme = 'foundation5';
-    JSONEditor.defaults.iconlib = 'fontawesome4';
+        // Set the default CSS theme and icon library globally
+        JSONEditor.defaults.theme = 'bootstrap3';
+        JSONEditor.defaults.iconlib = 'fontawesome4';
     </script>
-</head>
-<body>
-    <div class='row fullWidth header'>
-        <div class='medium-12-columns'>
-            <button id='submit'>Save</button>
-            <button id='restore' class='secondary'>Undo All Changes</button>
-             <span id='valid_indicator' class='label'></span>
-        </div>
-    </div>
-    <div class='row fullWidth content main'>
-        <div id='editor_holder' class='large-12 columns'></div>
-    </div>
+}
 
+@section scriptsBottom {
     <script>
-      // This is the starting value for the editor
-      // We will use this to seed the initial editor
-      // and to provide a "Restore to Default" button.
-        var starting_value = @Html.Raw(Model.Settings.JsonData);
+          // This is the starting value for the editor
+          // We will use this to seed the initial editor
+          // and to provide a "Restore to Default" button.
+            var starting_value = @Html.Raw(Model.Settings.JsonData);
 
-      // Initialize the editor
-      var editor = new JSONEditor(document.getElementById('editor_holder'),{
-        // Enable fetching schemas via ajax
-          ajax: true,
-          disable_collapse: true,
-          disable_edit_json: true,
-          disable_properties: true,
-          disable_array_reorder: true,
-          keep_oneof_values: false,
-          disable_array_delete_last_row: true,
-          disable_array_delete_all_rows: true,
+          // Initialize the editor
+          var editor = new JSONEditor(document.getElementById('editor_holder'),{
+            // Enable fetching schemas via ajax
+              ajax: true,
+              disable_collapse: true,
+              disable_edit_json: true,
+              disable_properties: true,
+              disable_array_reorder: true,
+              keep_oneof_values: false,
+              disable_array_delete_last_row: true,
+              disable_array_delete_all_rows: true,
 
-        // The schema for the editor
-        schema: @Html.Raw(Model.Settings.JsonSchema),
+            // The schema for the editor
+            schema: @Html.Raw(Model.Settings.JsonSchema),
 
-        // Seed the form with a starting value
-        startval: starting_value
-      });
-
-      // Hook up the submit button to log to the console
-      document.getElementById('submit').addEventListener('click',function() {
-          // Get the value from the editor
-          $.ajax({
-              type: "POST",
-              contentType: "application/json; charset=utf-8",
-              url: "/admin/save",
-              data: JSON.stringify(editor.getValue()),
-              success: function (result) {
-                  document.location.href = "/";
-              }
+            // Seed the form with a starting value
+            startval: starting_value
           });
-      });
 
-      // Hook up the Restore to Default button
-      document.getElementById('restore').addEventListener('click',function() {
-        editor.setValue(starting_value);
-      });
+          // Hook up the submit button to log to the console
+          document.getElementById('submit').addEventListener('click',function() {
+              // Get the value from the editor
+              $.ajax({
+                  type: "POST",
+                  contentType: "application/json; charset=utf-8",
+                  url: "/admin/save",
+                  data: JSON.stringify(editor.getValue()),
+                  success: function (result) {
+                      document.location.href = "/";
+                  }
+              });
+          });
 
-      // Hook up the validation indicator to update its
-      // status whenever the editor changes
-      editor.on('change',function() {
-        // Get an array of errors from the validator
-        var errors = editor.validate();
+          // Hook up the Restore to Default button
+          document.getElementById('restore').addEventListener('click',function() {
+            editor.setValue(starting_value);
+          });
 
-        var indicator = document.getElementById('valid_indicator');
+          // Hook up the validation indicator to update its
+          // status whenever the editor changes
+          editor.on('change',function() {
+            // Get an array of errors from the validator
+            var errors = editor.validate();
 
-        // Not valid
-        if(errors.length) {
-          indicator.className = 'label alert';
-          indicator.textContent = 'not valid';
-        }
-        // Valid
-        else {
-          indicator.className = 'label success';
-          indicator.textContent = 'valid';
-        }
-      });
+            var indicator = document.getElementById('valid_indicator');
+
+            // Not valid
+            if(errors.length) {
+              indicator.className = 'label alert';
+              indicator.textContent = 'not valid';
+            }
+            // Valid
+            else {
+              indicator.className = 'label success';
+              indicator.textContent = 'valid';
+            }
+          });
     </script>
-</body>
-</html>
+}

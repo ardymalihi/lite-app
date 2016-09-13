@@ -16,5 +16,7 @@ namespace LiteApp.ViewModels
 
         public bool ShowHeader { get; set; }
 
+        public bool FullRow { get; set; }
+
     }
 }

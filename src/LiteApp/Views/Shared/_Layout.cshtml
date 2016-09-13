@@ -32,7 +32,7 @@
         @Html.Raw(layoutViewModel.AppViewModel.App.HeaderHtml)
     }
 
-    <div class="container" role="main">
+    <div class="@(layoutViewModel.FullRow ? "" : "container")" role="main">
     <!--Start Body-->
         @RenderBody()
     <!--End Body-->

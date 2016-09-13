@@ -30,6 +30,14 @@ namespace LiteApp.Controllers
             }
         }
 
+        public LayoutViewModel Layout
+        {
+            get
+            {
+                return ViewBag.LayoutViewModel;
+            }
+        }
+
         public AppViewModel AppViewModel { get; set; }
 
         public BaseController(IAppService appService)
