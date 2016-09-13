@@ -11,5 +11,7 @@ namespace LiteApp.Data
         App Load();
 
         void Save(App app);
+
+        string Schema();
     }
 }

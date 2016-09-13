@@ -8,9 +8,13 @@ namespace LiteApp.Services
 
         void Save(App app);
 
+        string Schema();
+
         Page GetCurrentPage(string route);
 
         Module GetModule(string moduleId);
+
+
         
     }
 }

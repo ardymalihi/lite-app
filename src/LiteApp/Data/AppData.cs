@@ -15,6 +15,7 @@ namespace LiteApp.Data
     {
         private IHostingEnvironment _env;
         private readonly string FILE_NAME = "appData.json";
+        private readonly string SCHEMA_FILE_NAME = "appSchema.json";
 
         public AppData(IHostingEnvironment env)
         {
@@ -43,6 +44,13 @@ namespace LiteApp.Data
             }
         }
 
+        public string Schema()
+        {
+            var jsonSchema = File.ReadAllText(Path.Combine(_env.ContentRootPath, SCHEMA_FILE_NAME));
+
+            return jsonSchema;
+        }
+
         public void Save(App app)
         {
             var appDataFile = File.Create(Path.Combine(_env.ContentRootPath, FILE_NAME));
@@ -51,6 +59,8 @@ namespace LiteApp.Data
             appDataWriter.WriteLine(json);
             appDataWriter.Dispose();
         }
+
+
 
         private bool Exists()
         {

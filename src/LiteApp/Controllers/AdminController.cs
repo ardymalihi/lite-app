@@ -23,6 +23,10 @@ namespace LiteApp.Controllers
             var adminViewModel = new AdminViewModel
             {
                 App = this.AppService.App,
+                Settings = new SettingsViewModel {
+                    JsonData = JsonConvert.SerializeObject(this.AppService.App, Formatting.Indented, new JsonModuleConverter()),
+                    JsonSchema = this.AppService.Schema()
+                }
             };
 
             return View(adminViewModel);

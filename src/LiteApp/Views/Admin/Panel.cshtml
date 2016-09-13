@@ -1,7 +1,6 @@
 ﻿@model LiteApp.ViewModels.AdminViewModel
 @{
     Layout = null;
-    var data = Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.App));
 }
 <!DOCTYPE html>
 <html>
@@ -41,7 +40,7 @@
       // This is the starting value for the editor
       // We will use this to seed the initial editor
       // and to provide a "Restore to Default" button.
-        var starting_value = @data;
+        var starting_value = @Html.Raw(Model.Settings.JsonData);
 
       // Initialize the editor
       var editor = new JSONEditor(document.getElementById('editor_holder'),{
@@ -56,10 +55,7 @@
           disable_array_delete_all_rows: true,
 
         // The schema for the editor
-        schema: {
-          $ref: "/js/schema.json",
-          format: ""
-        },
+        schema: @Html.Raw(Model.Settings.JsonSchema),
 
         // Seed the form with a starting value
         startval: starting_value

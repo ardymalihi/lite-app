@@ -32,6 +32,11 @@ namespace LiteApp.Services
             _appData.Save(_app);
         }
 
+        public string Schema()
+        {
+            return _appData.Schema();
+        }
+
         public Page GetCurrentPage(string route)
         {
             var compareValue = route.ToLower().TrimEnd(new char[] { ' ', '?' }).TrimStart('/');
