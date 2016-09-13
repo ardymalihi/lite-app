@@ -1,1 +1,91 @@
 ﻿@model LiteApp.ViewModels.SettingsViewModel
+
+<button class="btn btn-success" id='submit'>Save</button>
+<button class="btn btn-default" id='restore'>Undo All Changes</button>
+<span class="label label-info" id='valid_indicator'></span>
+<div id='editor_holder' class='large-12 columns'></div>
+
+
+@section styles {
+    <!--Admin Styles-->
+    <link href="~/css/admin.css" rel="stylesheet" />
+    <link href="~/lib/font-awesome/css/font-awesome.css" rel="stylesheet" />
+}
+
+@section scriptsTop {
+    <!--Admin Scripts-->
+    <script src="~/js/jsoneditor.js"></script>
+
+    <script>
+        // Set the default CSS theme and icon library globally
+        JSONEditor.defaults.theme = 'bootstrap3';
+        JSONEditor.defaults.iconlib = 'fontawesome4';
+    </script>
+}
+
+@section scriptsBottom {
+    <script>
+          // This is the starting value for the editor
+          // We will use this to seed the initial editor
+          // and to provide a "Restore to Default" button.
+            var starting_value = @Html.Raw(Model.JsonData);
+
+          // Initialize the editor
+          var editor = new JSONEditor(document.getElementById('editor_holder'),{
+            // Enable fetching schemas via ajax
+              ajax: true,
+              disable_collapse: true,
+              disable_edit_json: true,
+              disable_properties: true,
+              disable_array_reorder: true,
+              keep_oneof_values: false,
+              disable_array_delete_last_row: true,
+              disable_array_delete_all_rows: true,
+
+            // The schema for the editor
+            schema: @Html.Raw(Model.JsonSchema),
+
+            // Seed the form with a starting value
+            startval: starting_value
+          });
+
+          // Hook up the submit button to log to the console
+          document.getElementById('submit').addEventListener('click',function() {
+              // Get the value from the editor
+              $.ajax({
+                  type: "POST",
+                  contentType: "application/json; charset=utf-8",
+                  url: "@Model.SaveEndpoint",
+                  data: JSON.stringify(editor.getValue()),
+                  success: function (result) {
+                      document.location.href = "/";
+                  }
+              });
+          });
+
+          // Hook up the Restore to Default button
+          document.getElementById('restore').addEventListener('click',function() {
+            editor.setValue(starting_value);
+          });
+
+          // Hook up the validation indicator to update its
+          // status whenever the editor changes
+          editor.on('change',function() {
+            // Get an array of errors from the validator
+            var errors = editor.validate();
+
+            var indicator = document.getElementById('valid_indicator');
+
+            // Not valid
+            if(errors.length) {
+              indicator.className = 'label alert';
+              indicator.textContent = 'not valid';
+            }
+            // Valid
+            else {
+              indicator.className = 'label success';
+              indicator.textContent = 'valid';
+            }
+          });
+    </script>
+}

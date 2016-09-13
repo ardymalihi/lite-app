@@ -22,16 +22,14 @@ namespace LiteApp.Controllers
         {
             this.Layout.FullRow = true;
 
-            var adminViewModel = new AdminViewModel
+            var settingsViewModel = new SettingsViewModel
             {
-                App = this.AppService.App,
-                Settings = new SettingsViewModel {
-                    JsonData = JsonConvert.SerializeObject(this.AppService.App, Formatting.Indented, new JsonModuleConverter()),
-                    JsonSchema = this.AppService.Schema()
-                }
+                JsonData = JsonConvert.SerializeObject(this.AppService.App, Formatting.Indented, new JsonModuleConverter()),
+                JsonSchema = this.AppService.Schema(),
+                SaveEndpoint = "/admin/save"
             };
 
-            return View(adminViewModel);
+            return View("_Settings", settingsViewModel);
         }
 
         [HttpPost]
