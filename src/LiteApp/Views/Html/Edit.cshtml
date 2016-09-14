@@ -1,5 +1,30 @@
 ﻿@model LiteApp.ViewModels.ModuleViewModel
 @{ 
-    var content = (Model.CurrentModule as LiteApp.Models.HtmlModule).Content;
+    var htmlModule = (Model.CurrentModule as LiteApp.Models.HtmlModule);
 }
-@Html.Raw(content)
+<form asp-controller="Html" asp-action="Edit" method="post">
+    <input name="id" type="hidden" value="@htmlModule.Id" />
+    <textarea name="content" id="txt@(htmlModule.Id)">@Html.Raw(htmlModule.Content)</textarea>
+    <button class="btn btn-success" type="submit">Apply Changes</button>
+</form>
+
+
+
+@section scriptsTop {
+    <!--Html Module Scripts-->
+    <script src="http://cdn.tinymce.com/4/tinymce.min.js"></script>
+
+    <script>
+        tinymce.init({
+            selector: '#txt@(htmlModule.Id)',
+            height: 500,
+            plugins: [
+              'advlist autolink lists link image charmap print preview anchor',
+              'searchreplace visualblocks code fullscreen',
+              'insertdatetime media table contextmenu paste code'
+            ],
+            toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+            content_css: '/lib/bootstrap/dist/css/bootstrap.css'
+        });
+    </script>
+}

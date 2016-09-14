@@ -24,7 +24,7 @@ namespace LiteApp.Controllers
                 SaveEndpoint = "/module/save/" + id
             };
 
-            return View("_Settings", settingsViewModel);
+            return View("Settings", settingsViewModel);
         }
 
         [HttpPost]

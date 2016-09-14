@@ -2,6 +2,9 @@
 using LiteApp.Services;
 using LiteApp.ViewModels;
 using LiteApp.Models;
+using LiteApp.Requests;
+using Newtonsoft.Json;
+using LiteApp.Common;
 
 namespace LiteApp.Controllers
 {
@@ -23,16 +26,21 @@ namespace LiteApp.Controllers
         }
 
         [HttpPost]
-        public IActionResult Save(string id, [FromBody]HtmlModule request)
+        public IActionResult Edit(HtmlModuleSaveRequest request)
         {
-            var module = (HtmlModule)this.AppService.GetModule(id);
+            if (ModelState.IsValid)
+            {
+                var module = this.AppService.GetModule(request.Id) as HtmlModule;
 
-            module.Content = request.Content;
+                module.Content = request.Content;
 
-            this.AppService.Save(this.AppService.App);
+                var app = this.AppService.ApplySettings(this.AppService.App, module);
 
-            return Ok();
+                this.AppService.Save(app);
 
+            }
+
+            return RedirectToAction("Edit", new { id = request.Id });
         }
     }
 }

@@ -29,7 +29,7 @@ namespace LiteApp.Controllers
                 SaveEndpoint = "/admin/save"
             };
 
-            return View("_Settings", settingsViewModel);
+            return View("Settings", settingsViewModel);
         }
 
         [HttpPost]
