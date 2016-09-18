@@ -64,7 +64,7 @@ namespace LiteApp.Services
             return app;
         }
 
-        public string Schema()
+        public string GetSchema()
         {
             return _appData.Schema();
         }

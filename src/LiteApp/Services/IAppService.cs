@@ -8,7 +8,7 @@ namespace LiteApp.Services
 
         void Save(App app);
 
-        string Schema();
+        string GetSchema();
 
         Page GetCurrentPage(string route);
 

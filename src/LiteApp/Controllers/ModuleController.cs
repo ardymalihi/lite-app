@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 using LiteApp.Common;
 using Newtonsoft.Json.Linq;
 using LiteApp.Models;
+using Newtonsoft.Json.Schema;
 
 namespace LiteApp.Controllers
 {
@@ -20,7 +21,7 @@ namespace LiteApp.Controllers
             var settingsViewModel = new SettingsViewModel
             {
                 JsonData = JsonConvert.SerializeObject(module, Formatting.Indented, new JsonModuleConverter()),
-                JsonSchema = GetModuleSchema(),
+                JsonSchema = GetModuleSchema(module),
                 SaveEndpoint = "/module/save/" + id
             };
 
@@ -41,92 +42,49 @@ namespace LiteApp.Controllers
             return Ok();
         }
 
-        private string GetModuleSchema()
+        private string GetModuleSchema(Module module)
         {
-            return @"{
-  'Title': 'Module Settings',
-  'properties': {
-	'Id': {
-	  'type': 'string',
-	  'default': null,
-	  'readonly': true
-	},
-	'Styles': {
-	  'format': 'tabs',
-	  'required': true,
-	  'type': 'array',
-	  'items': {
-		'headerTemplate': 'Style {{ i1 }}',
-		'type': 'object',
-		'properties': {
-		  'Path': {
-			'required': true,
-			'type': 'string'
-		  }
-		}
-	  }
-	},
-	'Scripts': {
-	  'format': 'tabs',
-	  'required': true,
-	  'type': 'array',
-	  'items': {
-		'headerTemplate': 'Script {{ i1 }}',
-		'type': 'object',
-		'properties': {
-		  'Path': {
-			'required': true,
-			'type': 'string'
-		  }
-		}
-	  }
-	}
-  },
-  'oneOf': [
-	{
-	  'title': 'Html Module',
-	  'type': 'object',
-	  'properties': {
-		'Type': {
-		  'type': 'string',
-		  'default': 'HtmlModule',
-		  'readonly': true
-		},
-		'Content': {
-		  'format': 'html',
-		  'options': {
-			'wysiwyg': false
-		  },
-		  'required': true,
-		  'type': 'string'
-		}
-	  }
-	},
-	{
-	  'title': 'Contact Module',
-	  'type': 'object',
-	  'properties': {
-		'Type': {
-		  'type': 'string',
-		  'default': 'ContactModule',
-		  'readonly': true
-		},
-		'Email': {
-		  'required': true,
-		  'type': 'string'
-		},
-		'Phone': {
-		  'required': true,
-		  'type': 'string'
-		},
-		'Address': {
-		  'required': true,
-		  'type': 'string'
-		}
-	  }
-	}
-  ]
-}";
+            var schema = JObject.Parse(this.AppService.GetSchema());
+
+            var moduleSchema = schema
+                ["properties"]
+                ["Pages"]
+                ["items"]
+                ["properties"]
+                ["Rows"]
+                ["items"]
+                ["properties"]
+                ["Cols"]
+                ["items"]
+                ["properties"]
+                ["Modules"];
+
+            var baseModuleProperties = moduleSchema
+                ["items"]
+                ["properties"] as JObject;
+
+            JArray modulesOptionsSchema = moduleSchema["items"]["oneOf"] as JArray;
+
+            JObject selectedModuleProperties = null;
+
+            foreach (var item in modulesOptionsSchema)
+            {
+                var moduleName = item
+                    ["properties"]
+                    ["Type"]
+                    ["default"].Value<string>();
+                if (moduleName == module.Type)
+                {
+                    selectedModuleProperties = item["properties"] as JObject;
+                    break;
+                }
+            }
+
+            baseModuleProperties.Merge(selectedModuleProperties);
+
+            var result = "{ 'title': 'Module Settings', 'type': 'object', 'properties': " + baseModuleProperties.ToString() + " }";
+
+            return result;
         }
     }
 }

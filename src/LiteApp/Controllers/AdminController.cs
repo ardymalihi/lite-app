@@ -25,7 +25,7 @@ namespace LiteApp.Controllers
             var settingsViewModel = new SettingsViewModel
             {
                 JsonData = JsonConvert.SerializeObject(this.AppService.App, Formatting.Indented, new JsonModuleConverter()),
-                JsonSchema = this.AppService.Schema(),
+                JsonSchema = this.AppService.GetSchema(),
                 SaveEndpoint = "/admin/save"
             };
 
