@@ -20,7 +20,7 @@ namespace LiteApp.Controllers
 
         public IActionResult Panel()
         {
-            this.Layout.FullRow = true;
+            //this.Layout.FullRow = true;
 
             var settingsViewModel = new SettingsViewModel
             {

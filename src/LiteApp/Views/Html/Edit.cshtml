@@ -2,10 +2,12 @@
 @{ 
     var htmlModule = (Model.CurrentModule as LiteApp.Models.HtmlModule);
 }
+<h1></h1>
 <form asp-controller="Html" asp-action="Edit" method="post">
     <input name="id" type="hidden" value="@htmlModule.Id" />
     <textarea name="content" id="txt@(htmlModule.Id)">@Html.Raw(htmlModule.Content)</textarea>
-    <button class="btn btn-success" type="submit">Apply Changes</button>
+    <h1></h1>
+    <button class="btn btn-lg btn-success" type="submit">Apply Changes</button>
 </form>
 
 
