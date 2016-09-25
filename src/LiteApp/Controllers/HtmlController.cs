@@ -15,6 +15,8 @@ namespace LiteApp.Controllers
         
         public IActionResult Edit(string id)
         {
+            this.Layout.PageTitle = "Edit Html";
+
             var module = this.AppService.GetModule(id);
 
             return View(new ModuleViewModel {

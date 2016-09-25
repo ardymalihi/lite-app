@@ -58,6 +58,7 @@
                             "Id": {
                               "type": "string",
                               "default": null,
+                              "options": { "hidden": true },
                               "readonly": true,
                               "propertyOrder": 10001
                             },
@@ -101,15 +102,14 @@
                               "properties": {
                                 "Type": {
                                   "type": "string",
+                                  "options": { "hidden": true },
                                   "propertyOrder": 10000,
                                   "default": "HtmlModule",
                                   "readonly": true
                                 },
                                 "Content": {
-                                  "format": "html",
-                                  "options": {
-                                    "wysiwyg": false
-                                  },
+                                  "format": "textarea",
+                                  "options": { "hidden": true },
                                   "required": true,
                                   "type": "string"
                                 }
@@ -121,6 +121,7 @@
                               "properties": {
                                 "Type": {
                                   "type": "string",
+                                  "options": { "hidden": true },
                                   "propertyOrder": 10000,
                                   "default": "ContactModule",
                                   "readonly": true
@@ -171,10 +172,7 @@
       }
     },
     "HeaderHtml": {
-      "format": "html",
-      "options": {
-        "wysiwyg": false
-      },
+      "format": "textarea",
       "required": true,
       "type": "string"
     },
@@ -183,10 +181,7 @@
       "type": "boolean"
     },
     "FooterHtml": {
-      "format": "html",
-      "options": {
-        "wysiwyg": false
-      },
+      "format": "textarea",
       "required": true,
       "type": "string"
     },

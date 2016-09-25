@@ -21,6 +21,7 @@ namespace LiteApp.Controllers
         public IActionResult Panel()
         {
             //this.Layout.FullRow = true;
+            this.Layout.PageTitle = "Admin Panel";
 
             var settingsViewModel = new SettingsViewModel
             {

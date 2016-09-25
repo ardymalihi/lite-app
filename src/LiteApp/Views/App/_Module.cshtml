@@ -1,22 +1,29 @@
 ﻿@model LiteApp.ViewModels.ModuleViewModel
 @{ 
     var s = Model.CurrentModule.GetSettings();
+    var isAdmin = User.IsInRole("admin");
 }
 <section id="module-container-@(Model.CurrentModule.Id)" style="position: relative;">
     <div id="module-body-@(Model.CurrentModule.Id)">
         @Html.Partial("_" + Model.CurrentModule.Type, Model.CurrentModule)
     </div>
-    @if (User.IsInRole("admin") && ((s.Actions != null && s.Actions.Count > 0) || (s.HasSettings)))
+    @if (isAdmin && ((s.Actions != null && s.Actions.Count > 0) || (s.HasSettings)))
     {
-        <div id="module-navbar-@(Model.CurrentModule.Id)" style="position: absolute; top: 0; right: 0;">
-            @if (s.HasSettings)
-            {
-                <a href="@($"/Module/Settings/{Model.CurrentModule.Id}")" class="btn btn-default btn-sm">Settings</a>
-            }
+        <div 
+             id="module-navbar-@(Model.CurrentModule.Id)" 
+             style="position: absolute; top: 0; right: 0;"
+             onmouseover="moduleNavbarMouseOver('@(Model.CurrentModule.Id)')" 
+             onmouseout="moduleNavbarMouseOut('@(Model.CurrentModule.Id)')"
+             >
             @foreach (var action in s.Actions ?? new List<LiteApp.Models.ModuleSettingsAction> { })
             {
                 <a href="@action.Route.Replace("{id}",Model.CurrentModule.Id)" class="btn btn-default btn-sm">@action.Title</a>
             }
+            @if (s.HasSettings)
+            {
+                <a href="@($"/Module/Settings/{Model.CurrentModule.Id}")" class="btn btn-default btn-sm">Settings</a>
+            }
+            <button onclick="removeModule('@Model.CurrentModule.Id')" class="btn btn-danger btn-sm">X</button>
         </div>
     }
     

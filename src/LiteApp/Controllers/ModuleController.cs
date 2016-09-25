@@ -16,6 +16,8 @@ namespace LiteApp.Controllers
         
         public IActionResult Settings(string id)
         {
+            this.Layout.PageTitle = "Module Settings";
+
             var module = this.AppService.GetModule(id);
 
             var settingsViewModel = new SettingsViewModel
