@@ -5,32 +5,10 @@
     <div class="@row.ClassName">
 
         @foreach (var col in row.Cols)
-                {
+        {
             <div class="@col.ClassName">
-
                 @foreach (var module in col.Modules)
                 {
-                    var settings = module.GetSettings();
-                    @if (User.IsInRole("admin") && 
-                        ((settings.Actions != null && 
-                        settings.Actions.Count > 0) || 
-                        (settings.HasSettings)))
-                    {
-                        <nav class="navbar navbar-default">
-                            <div class="container-fluid">
-                                <div class="navbar-header">
-                                @if (settings.HasSettings)
-                                {
-                                    <a href="@($"/Module/Settings/{module.Id}")" class="navbar-brand">Settings</a>
-                                }
-                                @foreach (var action in module.GetSettings().Actions ?? new List<LiteApp.Models.ModuleSettingsAction> { })
-                                {
-                                    <a href="@action.Route.Replace("{id}",module.Id)" class="navbar-brand">@action.Title</a>
-                                }    
-                                </div>
-                            </div>
-                        </nav>
-                    }
                    @Html.Partial("_Module",
                    new LiteApp.ViewModels.ModuleViewModel
                    {
@@ -44,12 +22,12 @@
     </div>
 }
 
-@{ 
+@{
     var modules = Model.CurrentPage.Rows
         .SelectMany(r => r.Cols.SelectMany(c => c.Modules));
 
     var styles = modules.
-        SelectMany(m=>m.Styles)
+        SelectMany(m => m.Styles)
         .GroupBy(s => s.Path.ToLower())
         .Select(g => g.First())
         .ToList();
@@ -63,16 +41,16 @@
 
 @section styles{
     <!--Module Styles-->
-@foreach (var style in styles)
-{
-    <link rel="stylesheet" href="@style.Path" />
-}
+    @foreach (var style in styles)
+    {
+        <link rel="stylesheet" href="@style.Path" />
+    }
 }
 
 @section scriptsTop {
     <!--Module Scripts-->
-@foreach (var script in scriptsTop)
-{
-    <script src="@script.Path"></script>
-}
+    @foreach (var script in scriptsTop)
+    {
+        <script src="@script.Path"></script>
+    }
 }
