@@ -58,12 +58,14 @@
                             "Id": {
                               "type": "string",
                               "default": null,
-                              "readonly": true
+                              "readonly": true,
+                              "propertyOrder": 10001
                             },
                             "Styles": {
                               "format": "tabs",
                               "required": true,
                               "type": "array",
+                              "propertyOrder": 10002,
                               "items": {
                                 "headerTemplate": "Style {{ i1 }}",
                                 "type": "object",
@@ -79,6 +81,7 @@
                               "format": "tabs",
                               "required": true,
                               "type": "array",
+                              "propertyOrder": 10003,
                               "items": {
                                 "headerTemplate": "Script {{ i1 }}",
                                 "type": "object",
@@ -98,6 +101,7 @@
                               "properties": {
                                 "Type": {
                                   "type": "string",
+                                  "propertyOrder": 10000,
                                   "default": "HtmlModule",
                                   "readonly": true
                                 },
@@ -117,6 +121,7 @@
                               "properties": {
                                 "Type": {
                                   "type": "string",
+                                  "propertyOrder": 10000,
                                   "default": "ContactModule",
                                   "readonly": true
                                 },
