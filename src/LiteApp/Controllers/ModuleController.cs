@@ -44,6 +44,18 @@ namespace LiteApp.Controllers
             return Ok();
         }
 
+        [HttpDelete]
+        public IActionResult Remove(string id)
+        {
+            var module = this.AppService.GetModule(id);
+
+            var app = this.AppService.RemoveModule(this.AppService.App, module);
+
+            this.AppService.Save(app);
+
+            return Ok();
+        }
+
         private string GetModuleSchema(Module module)
         {
             var schema = JObject.Parse(this.AppService.GetSchema());

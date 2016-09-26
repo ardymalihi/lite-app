@@ -16,6 +16,6 @@ namespace LiteApp.Services
 
         App ApplySettings(App app, Module moduleToSave);
 
-
+        App RemoveModule(App app, Module moduleToSave);
     }
 }

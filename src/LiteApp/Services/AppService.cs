@@ -4,6 +4,7 @@ using System.Linq;
 using System;
 using Newtonsoft.Json;
 using LiteApp.Common;
+using System.Collections.Generic;
 
 namespace LiteApp.Services
 {
@@ -57,6 +58,33 @@ namespace LiteApp.Services
                                 return app;
                             }
                         }
+                    }
+                }
+            }
+
+            return app;
+        }
+
+        public App RemoveModule(App app, Module moduleRemove)
+        {
+            var cnv = new JsonModuleConverter();
+
+            foreach (var page in app.Pages)
+            {
+                foreach (var row in page.Rows)
+                {
+                    foreach (var col in row.Cols)
+                    {
+                        List<Module> removeList = new List<Module>();
+                        for (int i = 0; i < col.Modules.Count; i++)
+                        {
+                            if (col.Modules[i].Id == moduleRemove.Id)
+                            {
+                                removeList.Add(col.Modules[i]);
+                            }
+                        }
+
+                        removeList.ForEach(m => col.Modules.Remove(m));
                     }
                 }
             }
