@@ -1,12 +1,16 @@
 ﻿@model LiteApp.ViewModels.AppViewModel
 
+@{ 
+    var isAdmin = User.IsInRole("admin");
+}
+
 @foreach (var row in Model.CurrentPage.Rows)
 {
     <div class="@row.ClassName">
 
         @foreach (var col in row.Cols)
         {
-            <div class="@col.ClassName">
+            <div class="@col.ClassName" style="position: relative;">
                 @foreach (var module in col.Modules)
                 {
                    @Html.Partial("_Module",
@@ -17,7 +21,23 @@
                        CurrentModule = module
                    })
                 }
+            @if (isAdmin)
+            {
+                <div class="btn-group-sm">
+                    <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Add <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Html</a></li>
+                        <li><a href="#">Contact</a></li>
+                     </ul>
+                </div>
+                @*<div id="column-navbar" style="position: absolute; top: 0; left: 0;">
+                    <button onclick="addModule('')" class="btn btn-success btn-sm">+</button>
+                </div>*@
+            }
             </div>
+            
         }
     </div>
 }

@@ -23,7 +23,7 @@ function removeModule(moduleId)
                 section.parentElement.removeChild(section);
             },
             function (error) {
-                alert(error);
+                console.log(error);
             }, true);
             
         }
